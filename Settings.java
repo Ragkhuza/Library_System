@@ -1,9 +1,9 @@
 package finals;
 
 import java.awt.EventQueue;
-import java.awt.event.ActionEvent;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 
 public class Settings {
@@ -15,11 +15,6 @@ public class Settings {
 		window.frmSettings.setVisible(true);
 	}
 	
-	// hala asan yung chatttt
-// OH NO
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -34,22 +29,17 @@ public class Settings {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
 	public Settings() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		frmSettings = new JFrame();
 		frmSettings.setTitle("Settings");
 		frmSettings.setBounds(100, 100, 257, 212);
 		frmSettings.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmSettings.getContentPane().setLayout(null);
+		frmSettings.setLocationRelativeTo(null);
 		
 		JButton btnUpdateAcc = new JButton("Update account");
 		// Anonymous/lambda function search mo na lang haha basta function siya na walang variable name
@@ -62,6 +52,19 @@ public class Settings {
 		
 		JButton btnDeleteAcc = new JButton("Delete account");
 		btnDeleteAcc.addActionListener(e -> { 
+			
+			int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete your account?",
+										"Alert",
+										JOptionPane.YES_OPTION);
+			if(response == 0) {
+				frmSettings.dispose();
+				
+				JOptionPane.showMessageDialog(null, "Account deleted.",
+						"Alert",
+						JOptionPane.INFORMATION_MESSAGE);
+				
+				Login.showWindow();
+			}
 // 			frmSettings.dispose();
 			//delete
 		});
@@ -82,13 +85,10 @@ public class Settings {
 		// di ko tanda iyong pagka hindi lambda HAHAHA oh no
 		btnLogOut.addActionListener(e -> {
 					frmSettings.dispose();
-			Notification.toastMessage("Message", "Logging out!");
+			Notification.Message("Message", "Logging out!");
 			//logout
 			
-			Login login = new Login();
-			login.setVisible(true);
-			login.setSize(400,200);
-			login.setLocationRelativeTo(null);
+			Login.showWindow();
 		});
 		btnLogOut.setBounds(36, 117, 164, 23);
 		frmSettings.getContentPane().add(btnLogOut);

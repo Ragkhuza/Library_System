@@ -91,7 +91,7 @@ public class AdminData {
 //			}
 			
 		} else {
-			Notification.toastError("[AdminData.java]ERROR! conn is null");
+			Notification.Error("[AdminData.java]ERROR! conn is null");
 		}
 		
 		return result;

@@ -1,6 +1,5 @@
 package finals;
 
-// doggos holy grail part 2
 public class Validator {
     protected static String errorMsg = "";
     
@@ -53,18 +52,7 @@ public class Validator {
     }
 
     public static void displayError() {
-        Notification.toastError(errorMsg);
-        
-        // CJ LILIGO LANG AKO AHAHAHAHAHAHAHAHAHA
-        // EWWWW DI KA PAPALA NALILIG
-//         YUCKKK
-//         HOY NALIGO AKO
-//         STRESSED LANG
-//         KAILANGAN KO ULIT AHHAHAHAHAHA
-        // WOW NAHIYA TULOY AKO BIGLA HAHAH
-        // JOKE LANG GO ON AHAHHAHAHA
-        // I WATCH U
-        // Dont worry hahaha alam ko namang HAHAHAHA sige
+        Notification.Error(errorMsg);
     }
 
     public static void setErrorMsg(String msg) {

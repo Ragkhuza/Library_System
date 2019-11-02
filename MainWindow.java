@@ -41,20 +41,9 @@ public class MainWindow {
 		window.frmMusicManagementSystem.setVisible(true);
 	}
 	
-	/**
-	 * Launch the application.
-	 */
 	public static void main (String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MainWindow window = new MainWindow();
-					window.frmMusicManagementSystem.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+		MainWindow window = new MainWindow();
+		window.frmMusicManagementSystem.setVisible(true);
 	}
 
 	// edit existing data on the table
@@ -203,7 +192,7 @@ public class MainWindow {
 	 * @throws SQLException
 	 */
 	public MainWindow() {
-		initialize();
+		run();
 
 		Object col[] = {"MusicID", "Title", "Artist", "AlbumTitle", "AlbumArtist", "Year", "Genre"};
 		model.setColumnIdentifiers(col);
@@ -216,80 +205,70 @@ public class MainWindow {
 	 * Initialize the contents of the frame.
 	 */
 
-	private void initialize() {
+	private void run() {
 		frmMusicManagementSystem = new JFrame(); // Ito iyong main window
 		frmMusicManagementSystem.setTitle("Music Management System");
 		frmMusicManagementSystem.setBounds(100, 100, 900, 550);
-		frmMusicManagementSystem.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmMusicManagementSystem.getContentPane().setLayout(null);
+		frmMusicManagementSystem.setLayout(null);
+		frmMusicManagementSystem.setLocationRelativeTo(null);
 
 		JPanel musicForm = new JPanel();
-		musicForm.setBounds(10, 324, 244, 176);
-		frmMusicManagementSystem.getContentPane().add(musicForm);
-		musicForm.setLayout(null);
-
-			JLabel lblTitle = new JLabel("Title");
-			lblTitle.setBounds(0, 0, 46, 14);
-			musicForm.add(lblTitle);
-
-			JLabel lblArtist = new JLabel("Artist");
-			lblArtist.setBounds(0, 25, 46, 14);
-			musicForm.add(lblArtist);
-
-			JLabel lblAlbum = new JLabel("Album Title");
-			lblAlbum.setBounds(0, 50, 70, 14);
-			musicForm.add(lblAlbum);
-
-			JLabel lblAlbumArtist = new JLabel("Album Artist");
-			lblAlbumArtist.setBounds(0, 75, 89, 14);
-			musicForm.add(lblAlbumArtist);
-
-			JLabel lblYear = new JLabel("Year");
-			lblYear.setBounds(0, 100, 46, 14);
-			musicForm.add(lblYear);
-
-			JLabel lblGenre = new JLabel("Genre");
-			lblGenre.setBounds(0, 125, 46, 14);
-			musicForm.add(lblGenre);
-
-			title = new JTextField();
-			title.setBounds(119, 0, 125, 20);
-			musicForm.add(title);
-			title.setColumns(10);
-
-			albumArtist = new JTextField();
-			albumArtist.setBounds(119, 75, 125, 20);
-			musicForm.add(albumArtist);
-			albumArtist.setColumns(10);
-
-			albumTitle = new JTextField();
-			albumTitle.setBounds(119, 50, 125, 20);
-			musicForm.add(albumTitle);
-			albumTitle.setColumns(10);
-
-			artist = new JTextField();
-			artist.setBounds(119, 25, 125, 20);
-			musicForm.add(artist);
-			artist.setColumns(10);
-
-			year = new JTextField();
-			year.setBounds(119, 100, 125, 20);
-			musicForm.add(year);
-			year.setColumns(10);
-
-			genre = new JTextField();
-			genre.setBounds(119, 125, 125, 20);
-			musicForm.add(genre);
-			genre.setColumns(10);
-
 		JPanel panel = new JPanel();
-		panel.setBounds(10, 145, 244, 168);
-		frmMusicManagementSystem.getContentPane().add(panel);
-		panel.setLayout(null);
-
 		JTextArea jtxtData = new JTextArea();
+		
+		JLabel lblTitle = new JLabel("Title");
+		JLabel lblArtist = new JLabel("Artist");
+		JLabel lblAlbum = new JLabel("Album Title");
+		JLabel lblAlbumArtist = new JLabel("Album Artist");
+		JLabel lblYear = new JLabel("Year");
+		JLabel lblGenre = new JLabel("Genre");
+		
+		title = new JTextField();
+		albumArtist = new JTextField();
+		albumTitle = new JTextField();
+		artist = new JTextField();
+		year = new JTextField();
+		genre = new JTextField();
+		
+		lblTitle.setBounds(0, 0, 46, 14);
+		lblArtist.setBounds(0, 25, 46, 14);
+		lblAlbum.setBounds(0, 50, 70, 14);
+		lblAlbumArtist.setBounds(0, 75, 89, 14);
+		lblYear.setBounds(0, 100, 46, 14);
+		lblGenre.setBounds(0, 125, 46, 14);
+		
+		title.setBounds(119, 0, 125, 20);
+		albumArtist.setBounds(119, 75, 125, 20);
+		albumTitle.setBounds(119, 50, 125, 20);
+		artist.setBounds(119, 25, 125, 20);
+		genre.setBounds(119, 125, 125, 20);
+		year.setBounds(119, 100, 125, 20);
+		
+		panel.setBounds(10, 145, 244, 168);
+		
 		jtxtData.setEditable(false);
 		jtxtData.setBounds(0, 0, 244, 168);
+		
+		musicForm.setBounds(10, 324, 244, 176);
+		frmMusicManagementSystem.add(musicForm);
+		musicForm.setLayout(null);
+
+			musicForm.add(lblTitle);		
+			musicForm.add(lblArtist);		
+			musicForm.add(lblAlbum);
+			musicForm.add(lblAlbumArtist);
+			musicForm.add(lblYear);
+			musicForm.add(lblGenre);
+			
+			musicForm.add(title);
+			musicForm.add(albumArtist);
+			musicForm.add(albumTitle);
+			musicForm.add(artist);
+			musicForm.add(year);
+			musicForm.add(genre);
+
+		frmMusicManagementSystem.add(panel);
+		panel.setLayout(null);
 		panel.add(jtxtData);
 
 		JButton btnAddMusic = new JButton("Add to Library");
@@ -372,7 +351,7 @@ public class MainWindow {
 		musicForm.setVisible(false);
 
 		btnAddMusic.setBounds(10, 11, 244, 23);
-		frmMusicManagementSystem.getContentPane().add(btnAddMusic);
+		frmMusicManagementSystem.add(btnAddMusic);
 
 		JButton btnRemove = new JButton("Remove from Library");
 		btnRemove.addActionListener(new ActionListener() {
@@ -393,7 +372,7 @@ public class MainWindow {
 		});
 
 		btnRemove.setBounds(10, 36, 244, 23);
-		frmMusicManagementSystem.getContentPane().add(btnRemove);
+		frmMusicManagementSystem.add(btnRemove);
 
 		JButton btnEdit = new JButton("Modify Data");
 
@@ -467,7 +446,7 @@ public class MainWindow {
 		
 
 		btnEdit.setBounds(10, 61, 244, 23);
-		frmMusicManagementSystem.getContentPane().add(btnEdit);
+		frmMusicManagementSystem.add(btnEdit);
 
 		JButton btnSettings = new JButton("Settings");
 		btnSettings.addActionListener(e -> {
@@ -475,7 +454,7 @@ public class MainWindow {
 			Settings.showWindow();
 		});
 		btnSettings.setBounds(10, 111, 244, 23);
-		frmMusicManagementSystem.getContentPane().add(btnSettings);
+		frmMusicManagementSystem.add(btnSettings);
 
 		JButton btnLoadData = new JButton("Load Data");
 		btnLoadData.addActionListener(new ActionListener() {
@@ -508,7 +487,7 @@ public class MainWindow {
 			}
 		});
 		btnLoadData.setBounds(10, 86, 244, 23);
-		frmMusicManagementSystem.getContentPane().add(btnLoadData);
+		frmMusicManagementSystem.add(btnLoadData);
 
 		table = new JTable();
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -522,7 +501,7 @@ public class MainWindow {
 
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(264, 11, 610, 489);
-		frmMusicManagementSystem.getContentPane().add(scrollPane);
+		frmMusicManagementSystem.add(scrollPane);
 
 	}
 

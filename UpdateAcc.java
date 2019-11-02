@@ -8,7 +8,6 @@ import java.sql.ResultSet;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
 
@@ -63,6 +62,7 @@ public class UpdateAcc {
 		frmUpdateAcc.setBounds(100, 100, 387, 382);
 		frmUpdateAcc.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmUpdateAcc.getContentPane().setLayout(null);
+		frmUpdateAcc.setLocationRelativeTo(null);
 		
 		JLabel lblOldUser = new JLabel("Old Username");
 		lblOldUser.setBounds(44, 24, 82, 14);
@@ -135,8 +135,8 @@ public class UpdateAcc {
 		JButton btnMainMenu = new JButton("Back");
 		btnMainMenu.addActionListener(e -> { 
 			frmUpdateAcc.dispose();
- 			MainWindow mw = new MainWindow();
-			mw.openMainWindow();
+ 			MainWindow window = new MainWindow();
+ 			window.openMainWindow();
 		});
 		btnMainMenu.setBounds(244, 300, 90, 23);
 		frmUpdateAcc.getContentPane().add(btnMainMenu);
@@ -151,7 +151,6 @@ public class UpdateAcc {
 			// Will not work unless user is logged in
 			String oldUsername = jtxtOldUser.getText();
 			String newUsername = jtxtNewUser.getText();
-//			String oldPassword = jtxtOldPass.getText();
 			String newPassword = jtxtNewPass.getText();
 			String newFirstname = jtxtFirstName.getText();
 			String newLastname = jtxtLastName.getText();
@@ -195,47 +194,13 @@ public class UpdateAcc {
 			// check if updated
 			if(count > 0) {
 				result = true;
-				Notification.toastSuccess("Update Success"); // change varible and class name of doggo's holy grail to avoid aki's suspicion[Validator.java, Notification.java]
+				Notification.Success("Update Success"); // change varible and class name of doggo's holy grail to avoid aki's suspicion[Validator.java, Notification.java]
 			} else {
-				Notification.toastError("[UpdateAcc.java]Update Unsuccessful");
+				Notification.Error("[UpdateAcc.java]Update Unsuccessful");
 			}
 			conn.close(); //close connection
 		} catch (Exception e) {
-			Notification.toastError("[UpdateAcc.java] " + e.getMessage());
-		}
-		
-		return result;
-	}
-	
-	// misleading
-	// ====================================misleads Doggo ==================================
-	private boolean editNames(String oldUsername, String oldPassword, String firstName, String lastName) {
-		boolean result = false;
-		if (!Validator.validateCredentials(firstName, lastName))
-			return false;
-		
-		conn = DBConnection.getConnection();
-
-		String sql = "UPDATE users SET first_name ='" + firstName
-					+ "', last_name ='" + lastName
-					+ "' WHERE username = '" + oldUsername + "'; ";
-
-		System.out.println("modifyTable- SQL : " + sql);
-
-		try {
-			pst = conn.prepareStatement(sql);
-			int count = pst.executeUpdate();
-			
-			// check if updated
-			if(count > 0) {
-				result = true;
-				Notification.toastSuccess("Update Success"); // change varible and class name of doggo's holy grail to avoid aki's suspicion[Validator.java, Notification.java]
-			} else {
-				Notification.toastError("[UpdateAcc.java]Update Unsuccessful");
-			}
-			
-		} catch (Exception e) {
-			Notification.toastError("[UpdateAcc.java] " + e.getMessage());
+			Notification.Error("[UpdateAcc.java] " + e.getMessage());
 		}
 		
 		return result;

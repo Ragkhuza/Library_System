@@ -12,8 +12,6 @@ public abstract class DBConnection {
 
 		try {
 			Class.forName("org.sqlite.JDBC");
-//			Connection conn = DriverManager.getConnection("jdbc:sqlite:MusicSystem.db");
-			// WHAT A LOGIC DOGGO HAHA
 			if(conn == null) // dont make connection if there's already one
 				conn = DriverManager.getConnection("jdbc:sqlite:MusicSystem.db");
 			// Uncomment for testing database connection
@@ -34,7 +32,6 @@ public abstract class DBConnection {
 		try {
 			result = conn.isClosed();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return result;
@@ -43,7 +40,7 @@ public abstract class DBConnection {
 	public static void closeAllConnection() {
 		try	{
 			conn.close();
-			conn = null; // :) RUN
+			conn = null;
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
