@@ -11,6 +11,7 @@ public class Login extends JFrame implements ActionListener {
 		Login login = new Login();
 		login.setVisible(true);
 		login.setSize(400,200);
+		login.setLocationRelativeTo(null);
 	}
 
 	JLabel usernameLabel, passwordLabel;
@@ -97,35 +98,25 @@ public class Login extends JFrame implements ActionListener {
 
 				@SuppressWarnings("deprecation")
 				int passLength = passwordField.getText().length();
-
-				if(username.trim().equals("") || password.trim().equals("")) {
-					JOptionPane.showMessageDialog(null,
-							"Please enter a valid username and password.",
-							"Warning",
-							JOptionPane.INFORMATION_MESSAGE);
+				
+				if(!Validator.validateCredentials(username, password)) {
+					Validator.displayError();
+					return;
 				}
-
-				else if(username.trim().equals(admindata.username) && password.trim().equals(admindata.password)) {
-					JOptionPane.showMessageDialog(null,
-							"Login successful",
-							"Login",
-							JOptionPane.INFORMATION_MESSAGE);
-
-					this.dispose(); // to close the login system
-
-					// importing the music management system
-					// di gumagana for some reason
-					MainWindow mw = new MainWindow();
-//					mw.setVisible(true);
-//					mw.setSize(900,550);
-				}
-
-				else {
-					JOptionPane.showMessageDialog(null,
-							"Invalid username or password. Please try again.",
-							"Error",
-							JOptionPane.INFORMATION_MESSAGE);
-				}
+				
+				// OMG DOGGO NEVER RUN THE CODE
+				// @DOGGO did waste time
+				// AHAHAHAHA it oki doggoRUN RUN RUN
+				// may error paaaa
+			
+				if(!AdminData.authenticate(username, password)) return;
+				
+				Notification.toastSuccess("magic of doggo");
+				
+				this.dispose(); // to close the login system
+				MainWindow mw = new MainWindow();
+				mw.openMainWindow();
+				
 			}
 		}
 

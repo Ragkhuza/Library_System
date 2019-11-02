@@ -35,6 +35,12 @@ public class MainWindow {
 	ResultSet rs = null;
 	DefaultTableModel model = new DefaultTableModel();
 
+
+	public void openMainWindow() {
+		MainWindow window = new MainWindow();
+		window.frmMusicManagementSystem.setVisible(true);
+	}
+	
 	/**
 	 * Launch the application.
 	 */
@@ -209,8 +215,9 @@ public class MainWindow {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+
 	private void initialize() {
-		frmMusicManagementSystem = new JFrame();
+		frmMusicManagementSystem = new JFrame(); // Ito iyong main window
 		frmMusicManagementSystem.setTitle("Music Management System");
 		frmMusicManagementSystem.setBounds(100, 100, 900, 550);
 		frmMusicManagementSystem.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -456,11 +463,17 @@ public class MainWindow {
 
 			}
 		});
+		
+		
 
 		btnEdit.setBounds(10, 61, 244, 23);
 		frmMusicManagementSystem.getContentPane().add(btnEdit);
 
 		JButton btnSettings = new JButton("Settings");
+		btnSettings.addActionListener(e -> {
+			frmMusicManagementSystem.dispose();
+			Settings.showWindow();
+		});
 		btnSettings.setBounds(10, 111, 244, 23);
 		frmMusicManagementSystem.getContentPane().add(btnSettings);
 
