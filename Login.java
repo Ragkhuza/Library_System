@@ -116,8 +116,8 @@ public class Login extends JFrame implements ActionListener {
 					// importing the music management system
 					// di gumagana for some reason
 					MainWindow mw = new MainWindow();
-					mw.setVisible(true);
-					mw.setSize(900,550);
+//					mw.setVisible(true);
+//					mw.setSize(900,550);
 				}
 
 				else {

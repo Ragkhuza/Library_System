@@ -11,7 +11,7 @@ public class DBConnection {
 
 		try {
 			Class.forName("org.sqlite.JDBC");
-			Connection conn = DriverManager.getConnection("jdbc:sqlite:D:\\eclipse-workspace\\FINALS\\MusicSystem.db");
+			Connection conn = DriverManager.getConnection("jdbc:sqlite:MusicSystem.db");
 			// Uncomment for testing database connection
 //			JOptionPane.showMessageDialog(null, "Database connected!");
 			return conn;
