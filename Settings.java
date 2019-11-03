@@ -64,7 +64,7 @@ public class Settings {
 				deleteAcc(id);
 				
 				frmSettings.dispose();
-				Alert.Success("Account deleted");
+				Alert.Success("Account deleted!");
 				Login.showWindow();
 			}
 			
@@ -78,9 +78,7 @@ public class Settings {
 
 		btnLogOut.addActionListener(e -> {
 			frmSettings.dispose();
-			Alert.Message("Message", "Logging out!");
-			
-			Login.showWindow();
+			Alert.Message("Message", "Log out successful!");
 		});
 		
 	}

@@ -39,6 +39,9 @@ public class MainWindow {
 	private JTextField year;
 	private JTextField genre;
 	private JTable table;
+	
+	private static JButton btnModify;
+	private static JButton btnAdd;
 
 	Connection conn = null;
 	PreparedStatement pst = null;
@@ -156,7 +159,7 @@ public class MainWindow {
 		btnAddMusic.addActionListener(e -> {
 			musicForm.setVisible(true);
 
-			JButton btnAdd = new JButton("Add");
+			btnAdd = new JButton("Add"); // @doggo make this single instance
 			btnAdd.setEnabled(true);
 			btnAdd.addActionListener(new ActionListener(){
 
@@ -192,15 +195,29 @@ public class MainWindow {
 							albumArtist.setText("");
 							year.setText("");
 							genre.setText("");
+							
 						}
 
-						musicForm.setVisible(false);
+						musicForm.setVisible(false); // ang nakakatawwa dyan, hindi drag and drop yung patong
+						// ako mismo nagcode HAHAHAHAHAHAHA AYY KAYA PALA HAHAHAHAHA bali kailgan isang copy lang iyong add at modify tapos ireremove bago ilagay sa
+						// music form
 					}
 				}
 			});
 
 			btnAdd.setBounds(0, 153, 116, 23);
+			try	{
+				
+			 musicForm.remove(btnModify);
+			} catch(NullPointerException ex) {
+				System.out.println("btnmodify not yet clicked, nothing to worry about doggo"); // @doggo will throw exception if btnmodify wasn't clicked
+			}
+			
 			musicForm.add(btnAdd);
+			musicForm.revalidate(); // update changes
+			musicForm.repaint(); // update changes
+			// ETO NA HAHAHAHA SORRY
+			// RUN RUN RUN BRIELLE
 				
 		});
 
@@ -239,14 +256,18 @@ public class MainWindow {
 		});
 
 		// mismong Modify button from the Menu
-		btnEdit.addActionListener(e -> {
+		// buti may comment kundi malilito nna naman ako
+		// bakit kasi may edit tapos may modify hahaha
+		// wag kagagamit ng magkakalapit iyong meaning pero di ganon related sa isa't isa
+		// basta iyon hahaha HAHAHAHAHAHAHAHAH
+		btnEdit.addActionListener(e -> { // @doggo modify data kasama ng mga load data
 				
 			conn = DBConnection.getConnection();
 
 			int i = table.getSelectedRow(); // returns -1 if not table selected
 			
 			if (i < 0) {
-				Alert.Error("Select a row to remove."); // run!!s <3
+				Alert.Error("Select a row to modify."); // run!!s <3
 				return;
 			}
 
@@ -258,10 +279,10 @@ public class MainWindow {
 			genre.setText((String)model.getValueAt(i, 6).toString());
 
 			// Modify button from the form
-			JButton btnModify = new JButton("Modify");
+			btnModify = new JButton("Modify"); // @doggo make this single instance
 			btnModify.setBounds(0, 153, 116, 23);
 
-			btnModify.addActionListener(new ActionListener(){
+			btnModify.addActionListener(new ActionListener(){ // @doggo nasa music form
 
 				public void actionPerformed(ActionEvent e) {
 
@@ -288,9 +309,16 @@ public class MainWindow {
 				}
 				
 			});
-
-			musicForm.add(btnModify);
-
+			
+			try {
+				musicForm.remove(btnAdd);
+			} catch(NullPointerException ex) {
+				System.out.println("btnmodify not yet clicked, nothing to worry about doggo"); // @doggo will throw exception if btnmodify wasn't clicked
+			}
+			
+			musicForm.add(btnModify); // @doggo button needs to be remove first
+			musicForm.revalidate(); // update changes
+			musicForm.repaint(); // update changes
 			if(table.getSelectedRow() < 0) {
 				Alert.Error("Select a row to modify.");
 			}

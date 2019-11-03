@@ -56,7 +56,7 @@ public class UpdateAcc {
 		
 		JButton btnApply = new JButton("Apply");
 		JButton btnCancel = new JButton("Cancel");
-		JButton btnMainMenu = new JButton("Back");
+		JButton btnMainMenu = new JButton("Home");
 		
 		jtxtOldUser = new JTextField(CredentialData.username);
 		jtxtOldPass = new JTextField(CredentialData.password);

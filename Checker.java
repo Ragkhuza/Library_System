@@ -13,7 +13,7 @@ public class Checker {
     }
     
     public static boolean validateFirstname(String name) {
-    	if(!isAlpha(name)) {
+    	if(!isAlphaSpace(name)) {
     		setErrorMsg("Firstname must be alpha characters only.");
     		return false; // must contain alpha characters only
     	}
@@ -32,7 +32,7 @@ public class Checker {
     }
     
     public static boolean validateLastname(String name) {
-    	if(!isAlpha(name)) {
+    	if(!isAlphaSpace(name)) {
     		setErrorMsg("Lastname must be alpha characters only.");
     		return false; // must contain alpha characters only
     	}
@@ -86,6 +86,11 @@ public class Checker {
         return !str.isEmpty();
     }
 
+    public static boolean isAlphaSpace(String str) {
+        return str.matches("^[a-zA-Z ]+$");
+    }
+
+    
     public static boolean isAlpha(String str) {
         return str.matches("^[a-zA-Z]+$");
     }
