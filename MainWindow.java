@@ -159,7 +159,7 @@ public class MainWindow {
 		btnAddMusic.addActionListener(e -> {
 			musicForm.setVisible(true);
 
-			btnAdd = new JButton("Add"); // @doggo make this single instance
+			btnAdd = new JButton("Add"); // make this single instance
 			btnAdd.setEnabled(true);
 			btnAdd.addActionListener(new ActionListener(){
 
@@ -198,9 +198,7 @@ public class MainWindow {
 							
 						}
 
-						musicForm.setVisible(false); // ang nakakatawwa dyan, hindi drag and drop yung patong
-						// ako mismo nagcode HAHAHAHAHAHAHA AYY KAYA PALA HAHAHAHAHA bali kailgan isang copy lang iyong add at modify tapos ireremove bago ilagay sa
-						// music form
+						musicForm.setVisible(false); 
 					}
 				}
 			});
@@ -210,13 +208,13 @@ public class MainWindow {
 				
 			 musicForm.remove(btnModify);
 			} catch(NullPointerException ex) {
-				System.out.println("btnmodify not yet clicked, nothing to worry about doggo"); // @doggo will throw exception if btnmodify wasn't clicked
+				System.out.println("btnmodify not yet clicked, nothing to worry about doggo"); // will throw exception if btnmodify wasn't clicked
 			}
 			
 			musicForm.add(btnAdd);
 			musicForm.revalidate(); // update changes
 			musicForm.repaint(); // update changes
-			// ETO NA HAHAHAHA SORRY
+			
 			// RUN RUN RUN BRIELLE
 				
 		});
@@ -260,7 +258,7 @@ public class MainWindow {
 		// bakit kasi may edit tapos may modify hahaha
 		// wag kagagamit ng magkakalapit iyong meaning pero di ganon related sa isa't isa
 		// basta iyon hahaha HAHAHAHAHAHAHAHAH
-		btnEdit.addActionListener(e -> { // @doggo modify data kasama ng mga load data
+		btnEdit.addActionListener(e -> { // modify data kasama ng mga load data
 				
 			conn = DBConnection.getConnection();
 
@@ -279,10 +277,10 @@ public class MainWindow {
 			genre.setText((String)model.getValueAt(i, 6).toString());
 
 			// Modify button from the form
-			btnModify = new JButton("Modify"); // @doggo make this single instance
+			btnModify = new JButton("Modify"); // make this single instance
 			btnModify.setBounds(0, 153, 116, 23);
 
-			btnModify.addActionListener(new ActionListener(){ // @doggo nasa music form
+			btnModify.addActionListener(new ActionListener(){ // nasa music form
 
 				public void actionPerformed(ActionEvent e) {
 
@@ -313,10 +311,10 @@ public class MainWindow {
 			try {
 				musicForm.remove(btnAdd);
 			} catch(NullPointerException ex) {
-				System.out.println("btnmodify not yet clicked, nothing to worry about doggo"); // @doggo will throw exception if btnmodify wasn't clicked
+				System.out.println("btnmodify not yet clicked, nothing to worry about doggo"); // will throw exception if btnmodify wasn't clicked
 			}
 			
-			musicForm.add(btnModify); // @doggo button needs to be remove first
+			musicForm.add(btnModify); // button needs to be remove first
 			musicForm.revalidate(); // update changes
 			musicForm.repaint(); // update changes
 			if(table.getSelectedRow() < 0) {
