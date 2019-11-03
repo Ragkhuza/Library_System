@@ -1,9 +1,11 @@
 package finals;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
 import javax.swing.JButton;
 
 public class Settings {
@@ -16,82 +18,93 @@ public class Settings {
 	}
 	
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Settings window = new Settings();
-					window.frmSettings.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				
-			}
-		});
+		Settings window = new Settings();
+		window.frmSettings.setVisible(true);
 	}
 
 	public Settings() {
-		initialize();
-	}
-
-	private void initialize() {
+		
 		frmSettings = new JFrame();
 		frmSettings.setTitle("Settings");
 		frmSettings.setBounds(100, 100, 257, 212);
 		frmSettings.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmSettings.getContentPane().setLayout(null);
+		frmSettings.setLayout(null);
 		frmSettings.setLocationRelativeTo(null);
 		
 		JButton btnUpdateAcc = new JButton("Update account");
-		// Anonymous/lambda function search mo na lang haha basta function siya na walang variable name
-		btnUpdateAcc.addActionListener(e -> { // magsusulat pa sana ako dito HAHAHA
- 			frmSettings.dispose();
-			UpdateAcc.showWindow();			/// / hEhe OHH HAHAHA Ieexplain ko kasi iyong arrow function HAHAHA di pa ako tapos HAHAHAH
-		});
-		btnUpdateAcc.setBounds(36, 30, 164, 23);
-		frmSettings.getContentPane().add(btnUpdateAcc);
-		
 		JButton btnDeleteAcc = new JButton("Delete account");
+		JButton btnBack = new JButton("Back to main menu");
+		JButton btnLogOut = new JButton("Log out");
+		
+		btnUpdateAcc.setBounds(36, 30, 164, 23);
+		btnDeleteAcc.setBounds(36, 59, 164, 23);
+		btnBack.setBounds(36, 88, 164, 23);
+		btnLogOut.setBounds(36, 117, 164, 23);
+		
+		frmSettings.add(btnUpdateAcc);
+		frmSettings.add(btnDeleteAcc);
+		frmSettings.add(btnBack);
+		frmSettings.add(btnLogOut);
+		
+		btnUpdateAcc.addActionListener(e -> {
+ 			frmSettings.dispose();
+			UpdateAcc.showWindow();
+		});
+		
 		btnDeleteAcc.addActionListener(e -> { 
 			
 			int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete your account?",
 										"Alert",
 										JOptionPane.YES_OPTION);
+			
 			if(response == 0) {
+				String id = CredentialData.username;
+				
+				deleteAcc(id);
+				
 				frmSettings.dispose();
-				
-				JOptionPane.showMessageDialog(null, "Account deleted.",
-						"Alert",
-						JOptionPane.INFORMATION_MESSAGE);
-				
+				Alert.Success("Account deleted");
 				Login.showWindow();
 			}
-// 			frmSettings.dispose();
-			//delete
+			
 		});
-		btnDeleteAcc.setBounds(36, 59, 164, 23);
-		frmSettings.getContentPane().add(btnDeleteAcc);
-		
-		
-		JButton btnBack = new JButton("Back to main menu");
+
 		btnBack.addActionListener(e -> { 
  			frmSettings.dispose();
  			MainWindow mw = new MainWindow();
 			mw.openMainWindow();
 		});
-		btnBack.setBounds(36, 88, 164, 23);
-		frmSettings.getContentPane().add(btnBack);
-		
-		JButton btnLogOut = new JButton("Log out");
-		// di ko tanda iyong pagka hindi lambda HAHAHA oh no
+
 		btnLogOut.addActionListener(e -> {
-					frmSettings.dispose();
-			Notification.Message("Message", "Logging out!");
-			//logout
+			frmSettings.dispose();
+			Alert.Message("Message", "Logging out!");
 			
 			Login.showWindow();
 		});
-		btnLogOut.setBounds(36, 117, 164, 23);
-		frmSettings.getContentPane().add(btnLogOut);
+		
+	}
+	
+	private void deleteAcc(String id) {
+		
+		Connection conn = null;
+		PreparedStatement pst = null;
+
+		conn= DBConnection.getConnection();
+
+		if(conn != null){
+
+			String sql= "DELETE FROM Users WHERE username = \"" + id + "\"";
+			System.out.println("deleteAcc- SQL : " + sql);
+
+			try {
+				pst= conn.prepareStatement(sql);
+				pst.executeUpdate();
+
+			} catch (Exception e) {
+				Alert.Warning("[removeTable] " + e.getMessage());
+			}
+
+		}
 
 	}
 }

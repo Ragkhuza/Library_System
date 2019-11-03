@@ -3,19 +3,19 @@ import java.sql.*;
 import javax.swing.*;
 
 public abstract class DBConnection {
-
-	private static final String USERNAME = "admin";
-	private static final String PASSWORD = "admin";
+	
 	private static Connection conn = null;// unify all connection
 
 	public static Connection getConnection() {
 
 		try {
 			Class.forName("org.sqlite.JDBC");
-			if(conn == null) // dont make connection if there's already one
+			// Doggo must reopen connection if it's closed
+			// closedConnection is not same as null
+			if(conn == null || conn.isClosed()) // dont make connection if there's already one
 				conn = DriverManager.getConnection("jdbc:sqlite:MusicSystem.db");
 			// Uncomment for testing database connection
-//			JOptionPane.showMessageDialog(null, "Database connected!");
+//			Alert.Success("Database connected!");
 			return conn;
 		}
 		catch (Exception e) {
@@ -24,8 +24,6 @@ public abstract class DBConnection {
 		}
 
 	}
-	
-	// RUN
 	
 	public static boolean isAllConnectionClosed() {
 		boolean result = false;

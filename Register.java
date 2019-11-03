@@ -10,6 +10,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class Register {
+	// for calling on other classes
+	public static void showWindow() {
+		Register window = new Register();
+		window.frmRegister.setVisible(true);
+	}
+	
+	// main
+	public static void main(String[] args) {
+		Register window = new Register();
+		window.frmRegister.setVisible(true);
+	}
 	
 	Connection conn = null;
 	PreparedStatement pst = null;
@@ -21,18 +32,13 @@ public class Register {
 	private JTextField jtxtLastName;
 	private JPasswordField jtxtPassword;
 
-	
-	public static void main(String[] args) {
-		Register window = new Register();
-		window.frmRegister.setVisible(true);
-	}
-
 	public Register() {
 		
 		frmRegister = new JFrame();
 		frmRegister.setTitle("Register");
 		frmRegister.setBounds(100, 100, 295, 210);
 		frmRegister.setLayout(null);
+		frmRegister.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmRegister.setLocationRelativeTo(null);
 		
 		JLabel lblUsername = new JLabel("Username");
@@ -131,17 +137,20 @@ public class Register {
 				// check if updated
 				if(count > 0) {
 					success = true;
-					Notification.Success("Registered succesfully"); // change varible and class name of doggo's holy grail to avoid aki's suspicion[Validator.java, Notification.java]
+					Alert.Success("Registered succesfully!");
+					
+					frmRegister.dispose();
 				} else {
-					Notification.Error("[UpdateAcc.java]Register unsuccessful");
+					Alert.Error("[UpdateAcc.java]Register unsuccessful");
 				}
 				conn.close(); //close connection
 			} catch (Exception e) {
-				Notification.Error("[UpdateAcc.java] " + e.getMessage());
+				Alert.Error("[UpdateAcc.java] " + e.getMessage());
 			}
 		}
 
 		return success;
 
 	}
+	
 }
