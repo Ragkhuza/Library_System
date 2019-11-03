@@ -3,6 +3,53 @@ package finals;
 public class Checker {
     protected static String errorMsg = "";
     
+    // validate registration fields
+    public static boolean validateRegistration(String username, String password, String firstname, String lastname) {
+    	if(!validateCredentials(username, password)) return false;
+    	if(!validateFirstname(firstname)) return false;
+    	if(!validateLastname(lastname)) return false;
+    	// RUN BRIELLE RUN!
+    	return true;
+    }
+    
+    public static boolean validateFirstname(String name) {
+    	if(!isAlpha(name)) {
+    		setErrorMsg("Firstname must be alpha characters only.");
+    		return false; // must contain alpha characters only
+    	}
+    	
+    	if(!isNotEmpty(name)) {
+    		setErrorMsg("Firstname must be alphanumeric");
+    		return false; // check if not empty
+    	}
+    	
+    	if(!isValidLength(name, 3)) {
+    		setErrorMsg("First name should be 3 or more"); 
+    		return false; // minimum allowed characters
+    	}
+    	
+    	return true;
+    }
+    
+    public static boolean validateLastname(String name) {
+    	if(!isAlpha(name)) {
+    		setErrorMsg("Lastname must be alpha characters only.");
+    		return false; // must contain alpha characters only
+    	}
+    	
+    	if(!isNotEmpty(name)) {
+    		setErrorMsg("Lastname must be alphanumeric");
+    		return false; // check if not empty
+    	}
+    	
+    	if(!isValidLength(name, 3)) {
+    		setErrorMsg("Lastname should be 3 or more"); 
+    		return false; // minimum allowed characters
+    	}
+    	
+    	return true;
+    }
+    
     public static boolean validateCredentials(String username, String password) {
         if (!validateUsername(username)) return false;
         if (!validatePassword(password)) return false;
@@ -17,7 +64,7 @@ public class Checker {
         }
 
         if(!isValidLength(username, 3)) {
-            setErrorMsg("Username must be at least 3 characters");
+            setErrorMsg("Username must be at least 3 characters!");
             return false;
         }
     	return true;
@@ -25,7 +72,7 @@ public class Checker {
     
     public static boolean validatePassword(String password) {
         if(password.length() < 5) {
-            setErrorMsg("Password must be at least 5 characters");
+            setErrorMsg("Password must be at least 5 characters!");
             return false;
         }
         return true;
@@ -59,7 +106,7 @@ public class Checker {
         errorMsg = msg;
     }
 
-    public static  String getErrorMsg() {
+    public static String getErrorMsg() {
         return errorMsg;
     }
 

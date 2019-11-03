@@ -36,14 +36,17 @@ public class UpdateAcc {
 	private JTextField jtxtLastName;
 
 	public UpdateAcc() {
-
+		
+		// frame
 		frmUpdateAcc = new JFrame();
 		frmUpdateAcc.setTitle("Settings - Update Account");
 		frmUpdateAcc.setBounds(100, 100, 387, 382);
 		frmUpdateAcc.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmUpdateAcc.setLayout(null);
 		frmUpdateAcc.setLocationRelativeTo(null);
+		frmUpdateAcc.setResizable(false);
 		
+		// declaration of elements
 		JLabel lblOldUser = new JLabel("Old Username");
 		JLabel lblNewUser = new JLabel("New Username");
 		JLabel lblOldPass = new JLabel("Old Password");
@@ -64,7 +67,9 @@ public class UpdateAcc {
 		jtxtOldUser.setEditable(false);
 		jtxtOldPass.setEditable(false);
 		
-		JSeparator separator = new JSeparator();
+		JSeparator separator = new JSeparator(); // divider
+		
+		// positioning of elements
 		
 		lblOldUser.setBounds(44, 24, 82, 14);
 		lblNewUser.setBounds(44, 65, 119, 14);
@@ -86,6 +91,8 @@ public class UpdateAcc {
 		btnCancel.setBounds(144, 300, 90, 23);
 		btnMainMenu.setBounds(244, 300, 90, 23);
 		
+		// displaying of elements
+		
 		frmUpdateAcc.add(lblOldUser);
 		frmUpdateAcc.add(jtxtOldUser);
 		frmUpdateAcc.add(lblNewUser);
@@ -104,7 +111,7 @@ public class UpdateAcc {
 
 		frmUpdateAcc.add(btnApply);
 		frmUpdateAcc.add(btnCancel);
-		frmUpdateAcc.add(btnMainMenu);
+		frmUpdateAcc.add(btnMainMenu); 
 		
 		
 		btnMainMenu.addActionListener(e -> { 
@@ -163,7 +170,6 @@ public class UpdateAcc {
 			} else {
 				Alert.Error("[UpdateAcc.java]Update Unsuccessful");
 			}
-//			conn.close(); // close connection
 		} catch (Exception e) {
 			Alert.Error("[UpdateAcc.java] " + e.getMessage());
 		}

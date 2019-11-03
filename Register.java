@@ -40,6 +40,7 @@ public class Register {
 		frmRegister.setLayout(null);
 		frmRegister.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmRegister.setLocationRelativeTo(null);
+		frmRegister.setResizable(false);
 		
 		JLabel lblUsername = new JLabel("Username");
 		JLabel lblPassword = new JLabel("Password");
@@ -84,10 +85,10 @@ public class Register {
 		btnSignUp.addActionListener(e -> {
 			register();
 			
-			frmRegister.dispose(); // close Register window
+			 // close Register window
 			
 			// Go back to Login page
-			Login.showWindow();
+			
 		});
 		
 		
@@ -102,24 +103,30 @@ public class Register {
 	}
 	
 	public boolean register(){
-		
+		// @DOGGO HAHAHA no validation
 		String username = jtxtUsername.getText();
 		@SuppressWarnings("deprecation")
 		String password = jtxtPassword.getText();
 		String first_name = jtxtFirstName.getText();
 		String last_name = jtxtLastName.getText();
 		
+		// @DOGGOS this is the magic
+		if( !Checker.validateRegistration(username, password, first_name, last_name) ) {
+			Checker.displayError();
+			return false;
+		}
+		// RUN BRIEL RUN
+		
 		jtxtUsername.setText(username);
 		jtxtPassword.setText(password);
 		jtxtFirstName.setText(first_name);
 		jtxtLastName.setText(last_name);
-
+		
 		boolean success = false;
 
 		conn = DBConnection.getConnection();
 
 		if(conn != null) {
-
 			String sql = "INSERT INTO Users (Username, Password, First_name, Last_name) ";
 			sql += "VALUES (";
 			sql += "'" + username + "',";
@@ -129,7 +136,7 @@ public class Register {
 			sql += ")";
 
 			System.out.println("register- SQL : " + sql);
-
+ 
 			try {
 				pst = conn.prepareStatement(sql);
 				int count = pst.executeUpdate();
@@ -140,6 +147,8 @@ public class Register {
 					Alert.Success("Registered succesfully!");
 					
 					frmRegister.dispose();
+					Login.showWindow();
+					
 				} else {
 					Alert.Error("[UpdateAcc.java]Register unsuccessful");
 				}
@@ -148,9 +157,8 @@ public class Register {
 				Alert.Error("[UpdateAcc.java] " + e.getMessage());
 			}
 		}
-
+		
 		return success;
-
-	}
+		};
 	
 }

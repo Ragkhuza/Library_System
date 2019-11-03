@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class AdminData {
+	// declaring for the connection to the database
 	static Connection conn = null;
 	static PreparedStatement pst = null;
 	static ResultSet rs = null;
@@ -15,7 +16,7 @@ public class AdminData {
 	
 	public static boolean authenticate(String userN, String pass) {
 		boolean result = false;
-		conn = DBConnection.getConnection();
+		conn = DBConnection.getConnection(); // establishing of connection to the database
 		
 		if(conn != null) {
 			String sql = "SELECT * FROM users where username = \"" + userN + "\" AND password = \"" + pass + "\" ;";
@@ -28,6 +29,7 @@ public class AdminData {
 				rs.next();
 				if(userN.equals(rs.getString("username")) && pass.equals(rs.getString("password"))) {
 					result = true;
+					// this will fetch user input data
 					CredentialData.username = rs.getString("username");
 					CredentialData.password = rs.getString("password");
 					CredentialData.firstname = rs.getString("first_name");

@@ -30,6 +30,7 @@ public class Settings {
 		frmSettings.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmSettings.setLayout(null);
 		frmSettings.setLocationRelativeTo(null);
+		frmSettings.setResizable(false);
 		
 		JButton btnUpdateAcc = new JButton("Update account");
 		JButton btnDeleteAcc = new JButton("Delete account");

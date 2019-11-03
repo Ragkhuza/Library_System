@@ -21,12 +21,8 @@ public class Login {
 	// main
 	public static void main(String[] args) {
 		Login window = new Login();
-		window.frmLogin.setVisible(true); // shiternet
-		window.frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // @BRIELLE Lagay mo to sa lahat ng nag oopen ng JFrame para mawal iyong lock :) okiii
-		// may code na pang close wait lang tinitingnan ko iyong fcode ko
-		// may code to na pang exit
-		// PAANO YUNG THING PARA AUTOMATIC MAGCLOSE
-		// NAIINIS NA AKO SA LOCKING
+		window.frmLogin.setVisible(true);
+		window.frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
 	Connection conn = null;
@@ -45,8 +41,10 @@ public class Login {
 		frmLogin.setBounds(100, 100, 315, 179);
 		frmLogin.setLayout(null);
 		frmLogin.setLocationRelativeTo(null);
+		frmLogin.setResizable(false);
 		frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		// declaration of elements
 		JLabel lblUsername = new JLabel("Username");
 		JLabel lblPassword = new JLabel("Password");
 		
@@ -56,6 +54,7 @@ public class Login {
 		JButton btnLogin = new JButton("Login");
 		JButton btnRegister = new JButton("Register");
 		
+		// positioning of elements
 		lblUsername.setBounds(30, 29, 81, 14);
 		lblPassword.setBounds(30, 65, 81, 14);
 		
@@ -65,6 +64,7 @@ public class Login {
 		btnLogin.setBounds(54, 97, 89, 23);
 		btnRegister.setBounds(155, 97, 89, 23);
 		
+		// displaying of elements
 		frmLogin.add(lblUsername);
 		frmLogin.add(jtxtUsername);		
 		frmLogin.add(lblPassword);
@@ -73,7 +73,9 @@ public class Login {
 		frmLogin.add(btnLogin);
 		frmLogin.add(btnRegister);
 		
-		btnLogin.addActionListener(e -> {
+		// button functions!
+		
+		btnLogin.addActionListener(e -> { // login button
 						
 			String username = jtxtUsername.getText();
 			@SuppressWarnings("deprecation")
@@ -92,8 +94,9 @@ public class Login {
 			MainWindow mw = new MainWindow();
 			mw.openMainWindow();
 		});
+
 		
-		btnRegister.addActionListener(e -> { 
+		btnRegister.addActionListener(e -> { // register button
 			frmLogin.dispose();
  			Register.showWindow();
 		});
@@ -101,7 +104,6 @@ public class Login {
 	}
 	
 	public void refreshTable() {
-//		conn = DBConnection.getConnection();
 
 		if(conn != null) {
 

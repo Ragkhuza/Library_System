@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -65,8 +66,9 @@ public class MainWindow {
 		frmMusicManagementSystem.setTitle("Music Management System");
 		frmMusicManagementSystem.setBounds(100, 100, 900, 550);
 		frmMusicManagementSystem.setLayout(null);
-		frmMusicManagementSystem.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmMusicManagementSystem.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // automatic close when different frame
 		frmMusicManagementSystem.setLocationRelativeTo(null);
+		frmMusicManagementSystem.setResizable(false);
 
 		JPanel musicForm = new JPanel();
 		JPanel panel = new JPanel();
@@ -219,13 +221,19 @@ public class MainWindow {
 		
 		btnRemove.addActionListener(e -> {
 			DefaultTableModel model = (DefaultTableModel) table.getModel();
-			if(table.getSelectedRow() < 1) {
+			if(table.getSelectedRow() < 0) {
 				Alert.Warning("Select a row to delete");
 			}
 			else {
-				String id= (String)model.getValueAt(table.getSelectedRow(), 0);
-				removeTable(id);
-				model.removeRow(table.getSelectedRow());
+				
+				int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to remove this from your library?",
+						"Alert",
+						JOptionPane.YES_OPTION);
+				if(response == 0) {
+					String id= (String)model.getValueAt(table.getSelectedRow(), 0);
+					removeTable(id);
+					model.removeRow(table.getSelectedRow());
+				}
 			}
 
 		});
@@ -238,7 +246,7 @@ public class MainWindow {
 			int i = table.getSelectedRow(); // returns -1 if not table selected
 			
 			if (i < 0) {
-				Alert.Error("NO row Selected DOggo"); // run!!s <3
+				Alert.Error("Select a row to remove."); // run!!s <3
 				return;
 			}
 
@@ -265,7 +273,7 @@ public class MainWindow {
 					if(!success){
 						Alert.Error("Error occurred in the database process. Please try again.");
 					} else {
-						Alert.Warning("Music was successfully updated!");
+						Alert.Message("Alert","Music was successfully updated!");
 	
 						title.setText("");
 						artist.setText("");
