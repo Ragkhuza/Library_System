@@ -2,14 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4a86737c-2dd3-4bd8-96eb-760a437fa180" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/James.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/BookObject.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Database Finals/DBConnection.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Database Finals/DBConnection.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Database Finals/MainWindow$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Database Finals/MainWindow$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Database Finals/MainWindow.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Database Finals/MainWindow.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DBConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DBConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Database Finals/MusicObject.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MusicObject.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,7 +118,7 @@
       <workItem from="1582279968857" duration="2155000" />
       <workItem from="1582376604592" duration="234000" />
       <workItem from="1582377516208" duration="6000" />
-      <workItem from="1582483984702" duration="9214000" />
+      <workItem from="1582483984702" duration="12759000" />
     </task>
     <task id="LOCAL-00001" summary="Semi refactored mainWindow">
       <created>1582493996052</created>
@@ -127,7 +127,14 @@
       <option name="project" value="LOCAL" />
       <updated>1582493996052</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="fixed refresh function">
+      <created>1582494600975</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1582494600975</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -135,7 +142,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Semi refactored mainWindow" />
-    <option name="LAST_COMMIT_MESSAGE" value="Semi refactored mainWindow" />
+    <MESSAGE value="fixed refresh function" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed refresh function" />
   </component>
   <component name="WindowStateProjectService">
     <state x="552" y="199" key="#Project_Structure" timestamp="1582279815588">
@@ -158,30 +166,34 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="751" y="382" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1920.1080@0.0.1920.1080" timestamp="1582279637005" />
-    <state x="579" y="47" key="CommitChangelistDialog2" timestamp="1582493995340">
+    <state x="0" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1582498657429">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="579" y="47" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1582493995340" />
+    <state x="0" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1582498657429" />
+    <state x="579" y="47" key="CommitChangelistDialog2" timestamp="1582494600393">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="579" y="47" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1582494600393" />
     <state x="373" y="213" key="FileChooserDialogImpl" timestamp="1582279784862">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="373" y="213" key="FileChooserDialogImpl/0.0.1920.1080@0.0.1920.1080" timestamp="1582279784862" />
-    <state width="1877" height="274" key="GridCell.Tab.0.bottom" timestamp="1582494572443">
+    <state width="914" height="274" key="GridCell.Tab.0.bottom" timestamp="1582500314407">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="274" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1582494572443" />
-    <state width="1877" height="274" key="GridCell.Tab.0.center" timestamp="1582494572442">
+    <state width="914" height="274" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1582500314407" />
+    <state width="914" height="274" key="GridCell.Tab.0.center" timestamp="1582500314406">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="274" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1582494572442" />
-    <state width="1877" height="274" key="GridCell.Tab.0.left" timestamp="1582494572442">
+    <state width="914" height="274" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1582500314406" />
+    <state width="914" height="274" key="GridCell.Tab.0.left" timestamp="1582500314406">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="274" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1582494572442" />
-    <state width="1877" height="274" key="GridCell.Tab.0.right" timestamp="1582494572443">
+    <state width="914" height="274" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1582500314406" />
+    <state width="914" height="274" key="GridCell.Tab.0.right" timestamp="1582500314407">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="274" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1582494572443" />
+    <state width="914" height="274" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1582500314407" />
     <state width="196" height="539" key="HiddenNamespacesPopup" timestamp="1582486441563">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -194,6 +206,10 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="567" y="152" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1582493441217" />
+    <state x="953" y="0" width="974" height="1087" key="dock-window-1" timestamp="1582499146356">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="953" y="0" width="974" height="1087" key="dock-window-1/0.0.1920.1080@0.0.1920.1080" timestamp="1582499146356" />
     <state x="342" y="120" key="new project wizard" timestamp="1582279305893">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>

@@ -3,7 +3,6 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,11 +18,11 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
 public class MainWindow {
-	JFrame frmMusicManagementSystem;
-	private JTextField albumArtist, albumTitle, artist, title, year, genre;
-	JLabel lblTitle, lblArtist, lblAlbum, lblAlbumArtist, lblYear, lblGenre;
+	JFrame mainWindowJFrame;
+	private JTextField bookIDJTxt, bookTitleJTxt, authorNameJTxt, pubYearJTxt, bookISBMJTxt, bookStatusJTxt;
+	JLabel bookIdJLbl, bookTitleJLbl, authorNameJLbl, pubYearJLbl, bookISBNJLbl, bookStatusJLbl;
 	private JTable jTable;
-	JPanel musicForm;
+	JPanel bookForm;
 	JButton btnAddMusic, btnRemove, btnEdit, btnLoadData, btnSort, btnSettings, btnCancel;
 
 	final static int J_TABLE_WIDTH = 900;
@@ -51,9 +50,9 @@ public class MainWindow {
 	}
 	
 	private void run() {
-		frmMusicManagementSystem = createMainJFrame("Library Management System");
+		mainWindowJFrame = createMainJFrame("Library Management System");
 
-		musicForm = buildMusicFormJPanel();
+		bookForm = buildMusicFormJPanel();
 		JPanel panel = new JPanel();
 		JTextArea jtxtData = new JTextArea();
 
@@ -64,8 +63,8 @@ public class MainWindow {
 		jtxtData.setEditable(false);
 		jtxtData.setBounds(0, 0, 244, 143);
 
-		frmMusicManagementSystem.add(musicForm);
-		frmMusicManagementSystem.add(panel);
+		mainWindowJFrame.add(bookForm);
+		mainWindowJFrame.add(panel);
 
 		initializeButtons();
 
@@ -103,12 +102,12 @@ public class MainWindow {
 				return;
 			}
 
-			title.setText((String)model.getValueAt(i, 1).toString()); // Nag error kapag walang laman
-			artist.setText((String)model.getValueAt(i, 2).toString());
-			albumTitle.setText((String)model.getValueAt(i, 3).toString());
-			albumArtist.setText((String)model.getValueAt(i, 4).toString());
-			year.setText((String)model.getValueAt(i, 5).toString());
-			genre.setText((String)model.getValueAt(i, 6).toString());
+			pubYearJTxt.setText((String)model.getValueAt(i, 1).toString()); // Nag error kapag walang laman
+			authorNameJTxt.setText((String)model.getValueAt(i, 2).toString());
+			bookTitleJTxt.setText((String)model.getValueAt(i, 3).toString());
+			bookIDJTxt.setText((String)model.getValueAt(i, 4).toString());
+			bookISBMJTxt.setText((String)model.getValueAt(i, 5).toString());
+			bookStatusJTxt.setText((String)model.getValueAt(i, 6).toString());
 
 			// Modify button from the form
 			btnModify = new JButton("Modify"); // make this single instance
@@ -118,9 +117,9 @@ public class MainWindow {
 
 				public void actionPerformed(ActionEvent e) {
 
-					MusicObject musicObject = createMusicObject();
+					BookObject bookObject = createMusicObject();
 					boolean success = false;
-					success = modifyTable(musicObject);
+					success = modifyTable(bookObject);
 
 					//display success or error message depending on boolean returned by addTable()
 					if(!success){
@@ -128,40 +127,40 @@ public class MainWindow {
 					} else {
 						NotificationManager.Message("Alert","Music was successfully updated!");
 
-						title.setText("");
-						artist.setText("");
-						albumTitle.setText("");
-						albumArtist.setText("");
-						year.setText("");
-						genre.setText("");
+						pubYearJTxt.setText("");
+						authorNameJTxt.setText("");
+						bookTitleJTxt.setText("");
+						bookIDJTxt.setText("");
+						bookISBMJTxt.setText("");
+						bookStatusJTxt.setText("");
 
-						musicForm.setVisible(false);
+						bookForm.setVisible(false);
 					}
 				}
 
 			});
 
 			try {
-				musicForm.remove(btnAdd);
+				bookForm.remove(btnAdd);
 			} catch(NullPointerException ex) {
 				System.out.println("btnmodify not yet clicked, nothing to worry about doggo"); // will throw exception if btnmodify wasn't clicked
 			}
 
-			musicForm.add(btnModify); // button needs to be remove first
-			musicForm.revalidate(); // update changes
-			musicForm.repaint(); // update changes
+			bookForm.add(btnModify); // button needs to be remove first
+			bookForm.revalidate(); // update changes
+			bookForm.repaint(); // update changes
 			if(jTable.getSelectedRow() < 0) {
 				NotificationManager.Error("Select a row to modify.");
 			}
 			else {
-				musicForm.setVisible(true);
+				bookForm.setVisible(true);
 				btnModify.setEnabled(true);
 			}
 
 		});
 
 		btnSettings.addActionListener(e -> {
-			frmMusicManagementSystem.dispose();
+			mainWindowJFrame.dispose();
 			new Settings();
 		});
 
@@ -204,7 +203,7 @@ public class MainWindow {
 
 		JScrollPane scrollPane = new JScrollPane(jTable);
 		scrollPane.setBounds(264, 11, J_TABLE_WIDTH, 489);
-		frmMusicManagementSystem.add(scrollPane);
+		mainWindowJFrame.add(scrollPane);
 
 	}
 
@@ -220,12 +219,12 @@ public class MainWindow {
 	}
 
 	private void addButtonsToMusicFrame() {
-		frmMusicManagementSystem.add(btnAddMusic);
-		frmMusicManagementSystem.add(btnRemove);
-		frmMusicManagementSystem.add(btnEdit);
-		frmMusicManagementSystem.add(btnLoadData);
-		frmMusicManagementSystem.add(btnSort);
-		frmMusicManagementSystem.add(btnSettings);
+		mainWindowJFrame.add(btnAddMusic);
+		mainWindowJFrame.add(btnRemove);
+		mainWindowJFrame.add(btnEdit);
+		mainWindowJFrame.add(btnLoadData);
+		mainWindowJFrame.add(btnSort);
+		mainWindowJFrame.add(btnSettings);
 	}
 
 	private void initializeButtons() {
@@ -245,36 +244,35 @@ public class MainWindow {
 	}
 
 	private void initializeLabels() {
-		lblTitle = new JLabel("Title");
-		lblArtist = new JLabel("Artist");
-		lblAlbum = new JLabel("Album Title");
-		lblAlbumArtist = new JLabel("Album Artist");
-		lblYear = new JLabel("Year");
-		lblGenre = new JLabel("Genre");
+		bookIdJLbl = new JLabel("IDS");
+		bookTitleJLbl = new JLabel("Title");
+		authorNameJLbl = new JLabel("Author");
+		pubYearJLbl = new JLabel("Pub. Year");
+		bookISBNJLbl = new JLabel("ISBN");
+		bookStatusJLbl = new JLabel("Status");
 
-		lblTitle.setBounds(0, 0, 46, 14);
-		lblArtist.setBounds(0, 25, 46, 14);
-		lblAlbum.setBounds(0, 50, 70, 14);
-		lblAlbumArtist.setBounds(0, 75, 89, 14);
-		lblYear.setBounds(0, 100, 46, 14);
-		lblGenre.setBounds(0, 125, 46, 14);
-
+		bookIdJLbl.setBounds(0, 0, 46, 14);
+		bookTitleJLbl.setBounds(0, 25, 46, 14);
+		authorNameJLbl.setBounds(0, 50, 70, 14);
+		pubYearJLbl.setBounds(0, 75, 89, 14);
+		bookISBNJLbl.setBounds(0, 100, 46, 14);
+		bookStatusJLbl.setBounds(0, 125, 46, 14);
 	}
 
 	private void initializeTextFields() {
-		title = new JTextField();
-		albumArtist = new JTextField();
-		albumTitle = new JTextField();
-		artist = new JTextField();
-		year = new JTextField();
-		genre = new JTextField();
+		bookIDJTxt = new JTextField();
+		bookTitleJTxt = new JTextField();
+		authorNameJTxt = new JTextField();
+		pubYearJTxt = new JTextField();
+		bookISBMJTxt = new JTextField();
+		bookStatusJTxt = new JTextField();
 
-		title.setBounds(119, 0, 125, 20);
-		albumArtist.setBounds(119, 75, 125, 20);
-		albumTitle.setBounds(119, 50, 125, 20);
-		artist.setBounds(119, 25, 125, 20);
-		genre.setBounds(119, 125, 125, 20);
-		year.setBounds(119, 100, 125, 20);
+		bookIDJTxt.setBounds(119, 0, 125, 20);
+		bookTitleJTxt.setBounds(119, 25, 125, 20);
+		authorNameJTxt.setBounds(119, 50, 125, 20);
+		pubYearJTxt.setBounds(119, 75, 125, 20);
+		bookISBMJTxt.setBounds(119, 100, 125, 20);
+		bookStatusJTxt.setBounds(119, 125, 125, 20);
 	}
 
 	private JPanel buildMusicFormJPanel() {
@@ -287,67 +285,62 @@ public class MainWindow {
 		ms.setLayout(null);
 
 		// all buttons within the music Form
-		ms.add(lblTitle);
-		ms.add(lblArtist);
-		ms.add(lblAlbum);
-		ms.add(lblAlbumArtist);
-		ms.add(lblYear);
-		ms.add(lblGenre);
+		ms.add(bookIdJLbl);
+		ms.add(bookTitleJLbl);
+		ms.add(authorNameJLbl);
+		ms.add(pubYearJLbl);
+		ms.add(bookISBNJLbl);
+		ms.add(bookStatusJLbl);
 
-		ms.add(title);
-		ms.add(albumArtist);
-		ms.add(albumTitle);
-		ms.add(artist);
-		ms.add(year);
-		ms.add(genre);
+		ms.add(pubYearJTxt);
+		ms.add(bookIDJTxt);
+		ms.add(bookTitleJTxt);
+		ms.add(authorNameJTxt);
+		ms.add(bookISBMJTxt);
+		ms.add(bookStatusJTxt);
 		ms.setVisible(false);
 
 		return ms;
 	}
 
 	private void onBtnAddToLibraryClick() {
-		musicForm.setVisible(true);
+		bookForm.setVisible(true);
 
 		btnAdd = new JButton("Add"); // make this single instance
 		btnAdd.setEnabled(true);
 		btnAdd.addActionListener(e1 -> {
-
 			if (
-					title.getText().isEmpty() ||
-					artist.getText().isEmpty()  ||
-					albumTitle.getText().isEmpty()  ||
-					albumArtist.getText().isEmpty()
-			)
-			{
+					pubYearJTxt.getText().isEmpty() ||
+					authorNameJTxt.getText().isEmpty()  ||
+					bookTitleJTxt.getText().isEmpty()  ||
+					bookIDJTxt.getText().isEmpty()
+			) {
 				NotificationManager.Message("Alert", "Please fill out all fields.");
 			} else {
-				MusicObject musicObject = createMusicObject();
-				boolean success = false;
-				success = addTable(musicObject);
+				BookObject bookObject = createMusicObject();
+				boolean success = addTable(bookObject);
 
 				//display success or error message depending on boolean returned by addTable()
 				if(!success){
 					NotificationManager.Error("Error occurred in the database process. Please try again.");
-
 				} else {
 					NotificationManager.Success("Music was added successfully");
 
-					title.setText("");
-					artist.setText("");
-					albumTitle.setText("");
-					albumArtist.setText("");
-					year.setText("");
-					genre.setText("");
+					bookIDJTxt.setText("");
+					bookTitleJTxt.setText("");
+					authorNameJTxt.setText("");
+					pubYearJTxt.setText("");
+					bookISBMJTxt.setText("");
+					bookStatusJTxt.setText("");
 
 				}
-
-				musicForm.setVisible(false);
+				bookForm.setVisible(false);
 			}
 		});
 		btnAdd.setBounds(0, 153, 116, 23);
 
 		try	{
-			musicForm.remove(btnModify);
+			bookForm.remove(btnModify);
 		} catch(NullPointerException ex) {
 			System.out.println("btn modify not yet clicked, nothing to worry about doggo"); // will throw exception if btnmodify wasn't clicked
 		}
@@ -355,37 +348,37 @@ public class MainWindow {
 		btnCancel = new JButton("Cancel");
 		btnCancel.setBounds(128, 153, 116, 23);
 		btnCancel.addActionListener(e -> {
-			title.setText("");
-			artist.setText("");
-			albumTitle.setText("");
-			albumArtist.setText("");
-			year.setText("");
-			genre.setText("");
+			pubYearJTxt.setText("");
+			authorNameJTxt.setText("");
+			bookTitleJTxt.setText("");
+			bookIDJTxt.setText("");
+			bookISBMJTxt.setText("");
+			bookStatusJTxt.setText("");
 
-			musicForm.setVisible(false);
+			bookForm.setVisible(false);
 		});
 
-		musicForm.add(btnAdd);
-		musicForm.add(btnCancel);
+		bookForm.add(btnAdd);
+		bookForm.add(btnCancel);
 
-		musicForm.revalidate(); // update changes
-		musicForm.repaint(); // update changes
+		bookForm.revalidate(); // update changes
+		bookForm.repaint(); // update changes
 	}
 	
 	// edit existing data on the table
-	public boolean modifyTable(MusicObject musicObject) {
+	public boolean modifyTable(BookObject bookObject) {
 
 		boolean success = false;
 
 		conn = DBConnection.getConnection();
 
 		String id= (String)model.getValueAt(jTable.getSelectedRow(), 0);
-		String sql = "UPDATE Music SET Title =\"" + musicObject.getTitle()
-					+ "\", Artist =\"" + musicObject.getArtist()
-					+ "\", AlbumTitle =\"" + musicObject.getAlbumTitle()
-					+ "\", AlbumArtist =\"" + musicObject.getAlbumArtist()
-					+ "\", Year =\"" + musicObject.getYear()
-					+ "\", Genre =\"" + musicObject.getGenre()
+		String sql = "UPDATE Music SET Title =\"" + bookObject.getTitle()
+//					+ "\", Artist =\"" + musicObject.getArtist()
+					+ "\", AlbumTitle =\"" + bookObject.getAuthor()
+					+ "\", AlbumArtist =\"" + bookObject.getPubYear()
+					+ "\", Year =\"" + bookObject.getIsbm()
+					+ "\", Genre =\"" + bookObject.getStatus()
 					+ "\" WHERE MusicID = '" + id + "'";
 
 		System.out.println("modifyTable- SQL : " + sql);
@@ -414,7 +407,7 @@ public class MainWindow {
 	}
 
 	// adding data to the table
-	public boolean addTable(MusicObject musicObject){
+	public boolean addTable(BookObject bookObject){
 
 		boolean success= false;
 
@@ -422,14 +415,16 @@ public class MainWindow {
 
 		if(conn != null) {
 
-			String sql = "INSERT INTO Music (Title, Artist, AlbumTitle, AlbumArtist, Year, Genre) ";
+			// @TODO DOGGO replace this with out own builder
+			String sql = "INSERT INTO Book ";
 			sql += "VALUES (";
-			sql += "'" + musicObject.getTitle() + "',";
-			sql += "'" + musicObject.getArtist() + "',";
-			sql += "'" + musicObject.getAlbumTitle() + "',";
-			sql += "'" + musicObject.getAlbumArtist() + "',";
-			sql += "'" + musicObject.getYear() + "',";
-			sql += "'" + musicObject.getGenre() + "'";
+			sql += "" + bookObject.getId() + ",";
+			sql += "'" + bookObject.getTitle() + "',";
+			sql += "'" + bookObject.getAuthor() + "',";
+			sql += "" + bookObject.getPubYear() + ",";
+			sql += "'" + bookObject.getIsbm() + "',";
+			sql += "'" + bookObject.getStatus() + "',";
+			sql += "'" + 3 + "'";
 			sql += ")";
 
 			System.out.println("addTable- SQL : " + sql);
@@ -455,7 +450,6 @@ public class MainWindow {
 		}
 
 		return success;
-
 	}
 
 	// update the contents of the table
@@ -511,23 +505,24 @@ public class MainWindow {
 
 	}
 
-	private MusicObject createMusicObject() {
-		MusicObject musicObject= new MusicObject();
+	private BookObject createMusicObject() {
+		BookObject bookObject = new BookObject();
 
-		String albumArtistString= albumArtist.getText();
-		String albumTitleString= albumTitle.getText();
-		String artistString= artist.getText();
-		String titleString= title.getText();
-		String yearString= year.getText();
-		String genreString= genre.getText();
+		String bookID = bookIDJTxt.getText();
+		String bookTitle = bookTitleJTxt.getText();
+		String authorName = authorNameJTxt.getText();
+		String pubYear = pubYearJTxt.getText();
+		String bookISBM = bookISBMJTxt.getText();
+		String bookStatus = bookStatusJTxt.getText();
 
-		musicObject.setAlbumArtist(albumArtistString);
-		musicObject.setAlbumTitle(albumTitleString);
-		musicObject.setArtist(artistString);
-		musicObject.setTitle(titleString);
-		musicObject.setYear(yearString);
-		musicObject.setGenre(genreString);
+		System.out.println("book ID" + bookID);
+		bookObject.setId(bookID);
+		bookObject.setTitle(bookTitle);
+		bookObject.setAuthor(authorName);
+		bookObject.setPubYear(pubYear);
+		bookObject.setIsbm(bookISBM);
+		bookObject.setStatus(bookStatus);
 
-		return musicObject;
+		return bookObject;
 	}
 }
