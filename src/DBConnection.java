@@ -9,7 +9,7 @@ public class DBConnection {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 
 			Connection conn = DriverManager.getConnection(
-					"jdbc:oracle:thin:@localhost:1521:orcl","doggo","Oracle123");
+					"jdbc:oracle:thin:@localhost:1521:orcl","doggo_finals","Oracle123");
 
 			System.out.println("Connected to database");
 			return conn;

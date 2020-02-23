@@ -3,6 +3,7 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -40,7 +41,7 @@ public class MainWindow {
 		model.setColumnIdentifiers(col);
 		jTable.setModel(model);
 		
-		sort();
+//		sort();
 		refreshTable();
 	}
 	
@@ -370,7 +371,6 @@ public class MainWindow {
 		musicForm.revalidate(); // update changes
 		musicForm.repaint(); // update changes
 	}
-
 	
 	// edit existing data on the table
 	public boolean modifyTable(MusicObject musicObject) {
@@ -464,7 +464,7 @@ public class MainWindow {
 
 		if(conn != null) {
 
-			String sql = "SELECT MusicID, Title, Artist, AlbumTitle, AlbumArtist, Year, Genre FROM Music";
+			String sql = "SELECT * FROM Book";
 			System.out.println("refreshTable- SQL : " + sql);
 
 			try {
@@ -473,18 +473,16 @@ public class MainWindow {
 				Object [] columnData = new Object[7];
 
 				while (rs.next()) {
-					columnData[0] = rs.getString("MusicID");
-					columnData[1] = rs.getString("Title");
-					columnData[2] = rs.getString("Artist");
-					columnData[3] = rs.getString("AlbumTitle");
-					columnData[4] = rs.getString("AlbumArtist");
-					columnData[5] = rs.getString("Year");
-					columnData[6] = rs.getString("Genre");
+					columnData[0] = rs.getString("BookID");
+					columnData[1] = rs.getString("BookTitle");
+					columnData[2] = rs.getString("BookAuthorName");
+					columnData[3] = rs.getString("BookPublicationYear");
+					columnData[4] = rs.getString("BookISBN");
+					columnData[5] = rs.getString("BookStatus");
+					columnData[6] = rs.getString("Shelf_ShelfID");
 					model.addRow(columnData);
 				}
-			}
-
-			catch (Exception e) {
+			} catch (Exception e) {
 				NotificationManager.Warning("[refreshTable] " + e.getMessage());
 			}
 		}
