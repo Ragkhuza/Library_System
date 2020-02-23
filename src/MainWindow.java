@@ -21,9 +21,9 @@ public class MainWindow {
 	JFrame mainWindowJFrame;
 	private JTextField bookIDJTxt, bookTitleJTxt, authorNameJTxt, pubYearJTxt, bookISBMJTxt, bookStatusJTxt;
 	JLabel bookIdJLbl, bookTitleJLbl, authorNameJLbl, pubYearJLbl, bookISBNJLbl, bookStatusJLbl;
-	private JTable jTable;
+	static private JTable jTable;
 	JPanel bookForm;
-	JButton btnAddMusic, btnRemove, btnEdit, btnLoadData, btnSort, btnSettings, btnCancel;
+	JButton btnAddMusic, btnRemove, btnEdit, btnLoadData, btnRefresh, btnSettings, btnCancel;
 
 	final static int J_TABLE_WIDTH = 900;
 
@@ -31,17 +31,19 @@ public class MainWindow {
 	Connection conn = null;
 	PreparedStatement pst = null;
 	ResultSet rs = null;
-	DefaultTableModel model = new DefaultTableModel();
+	static DefaultTableModel model = new DefaultTableModel();
 
 	public MainWindow() {
 		run();
+		initModel();
+		sort();
+		refreshTable();
+	}
 
+	private void initModel() {
 		Object[] col = {"BookID", "BookTitle", "BookAuthorName", "BookPublicationYear", "BookISBN", "BookStatus", "Shelf_ShelfID"};
 		model.setColumnIdentifiers(col);
 		jTable.setModel(model);
-		
-//		sort();
-		refreshTable();
 	}
 	
 	private void sort() {
@@ -188,8 +190,8 @@ public class MainWindow {
 
 		});
 
-		btnSort.addActionListener(e -> {
-			NotificationManager.Message("Alert", "To sort data, click on the column of the table.");
+		btnRefresh.addActionListener(e -> {
+			refreshTable();
 		});
 
 		jTable = new JTable();
@@ -223,7 +225,7 @@ public class MainWindow {
 		mainWindowJFrame.add(btnRemove);
 		mainWindowJFrame.add(btnEdit);
 		mainWindowJFrame.add(btnLoadData);
-		mainWindowJFrame.add(btnSort);
+		mainWindowJFrame.add(btnRefresh);
 		mainWindowJFrame.add(btnSettings);
 	}
 
@@ -232,14 +234,14 @@ public class MainWindow {
 		btnRemove = new JButton("Remove from Library");
 		btnEdit = new JButton("Modify Data");
 		btnLoadData = new JButton("Load Data");
-		btnSort = new JButton("Sort Data");
+		btnRefresh = new JButton("Refresh Data");
 		btnSettings = new JButton("Settings");
 
 		btnAddMusic.setBounds(10, 11, 244, 23);
 		btnRemove.setBounds(10, 36, 244, 23);
 		btnEdit.setBounds(10, 61, 244, 23);
 		btnLoadData.setBounds(10, 86, 244, 23);
-		btnSort.setBounds(10, 111, 244, 23);
+		btnRefresh.setBounds(10, 111, 244, 23);
 		btnSettings.setBounds(10, 136, 244, 23);
 	}
 
@@ -465,6 +467,7 @@ public class MainWindow {
 				pst = conn.prepareStatement(sql);
 				rs = pst.executeQuery();
 				Object [] columnData = new Object[7];
+				model.setRowCount(0);
 
 				while (rs.next()) {
 					columnData[0] = rs.getString("BookID");
