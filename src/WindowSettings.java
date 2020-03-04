@@ -42,9 +42,10 @@ public class WindowSettings {
 		
 		btnDeleteAcc.addActionListener(e -> { 
 			
-			int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete your account?",
-										"Alert",
-										JOptionPane.YES_OPTION);
+			int response = JOptionPane.showConfirmDialog(null,
+					"Are you sure you want to delete your account?",
+					"Alert",
+					JOptionPane.YES_NO_OPTION);
 			
 			if(response == 0) {
 				String id = CredentialData.getUsername();
@@ -72,31 +73,29 @@ public class WindowSettings {
 		btnLogOut.addActionListener(e -> {
 			frmSettings.dispose();
 			NotificationManager.Message("Message", "Log out successful!");
+
+			new WindowLogin();
 		});
 		
 	}
 	
 	private void deleteAcc(String id) {
-		
 		Connection conn = null;
 		PreparedStatement pst = null;
-
 		conn= DBConnection.getConnection();
 
 		if(conn != null){
 
-			String sql= "DELETE FROM Users WHERE username = \"" + id + "\"";
+			String sql= "DELETE FROM LIBRARYUSERS WHERE username = '" + CredentialData.getUsername() + "'";
 			System.out.println("deleteAcc- SQL : " + sql);
 
 			try {
 				pst= conn.prepareStatement(sql);
 				pst.executeUpdate();
-
 			} catch (Exception e) {
 				NotificationManager.Warning("[removeTable] " + e.getMessage());
 			}
-
 		}
-
 	}
+
 }

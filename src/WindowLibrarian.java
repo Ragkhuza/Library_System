@@ -83,7 +83,8 @@ public class WindowLibrarian {
 			}
 			else {
 
-				int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to remove this from your library?",
+				int response = JOptionPane.showConfirmDialog(null,
+						"Are you sure you want to remove this from your library?",
 						"Alert",
 						JOptionPane.YES_OPTION);
 				if(response == 0) {
@@ -141,7 +142,8 @@ public class WindowLibrarian {
 			try {
 				leftBookFormPanel.remove(btnAdd);
 			} catch(NullPointerException ex) {
-				System.out.println("btn modify not yet clicked, nothing to worry about doggo"); // will throw exception if btnmodify wasn't clicked
+				// will throw exception if btnmodify wasn't clicked
+				System.out.println("btn modify not yet clicked, nothing to worry about doggo");
 			}
 
 			leftBookFormPanel.add(btnModify); // button needs to be remove first
@@ -330,7 +332,8 @@ public class WindowLibrarian {
 		try	{
 			leftBookFormPanel.remove(btnModify);
 		} catch(NullPointerException ex) {
-			System.out.println("btn modify not yet clicked, nothing to worry about doggo"); // will throw exception if btnmodify wasn't clicked
+			// will throw exception if btnmodify wasn't clicked
+			System.out.println("btn modify not yet clicked, nothing to worry about doggo");
 		}
 
 		btnCancel = new JButton("Cancel");
