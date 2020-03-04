@@ -7,6 +7,7 @@
       <w>jtxt</w>
       <w>lastname</w>
       <w>userpassword</w>
+      <w>usertype</w>
     </words>
   </dictionary>
 </component>

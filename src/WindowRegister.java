@@ -8,10 +8,9 @@ import java.awt.GridLayout;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 
-public class Register {
+public class WindowRegister {
 	// for calling on other classes
 	Connection conn = null;
 	PreparedStatement pst = null;
@@ -22,7 +21,7 @@ public class Register {
 	private JTextField[] registerFormTxt;
 	private LinkedHashMap fieldsMap = new LinkedHashMap();
 
-	public Register() {
+	public WindowRegister() {
 		String[] registerFromStrings = {
 				"username",
 				"email",
@@ -86,7 +85,7 @@ public class Register {
 			frmRegister.dispose(); // close Register window
 
 			// Go back to Login page
-			new Login();
+			new WindowLogin();
 		});
 	}
 
@@ -131,7 +130,7 @@ public class Register {
 					NotificationManager.Success("Registered succesfully!");
 
 					frmRegister.dispose();
-					new Login();
+					new WindowLogin();
 
 				} else {
 					NotificationManager.Error("[UpdateAcc.java]Register unsuccessful");

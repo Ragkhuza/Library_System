@@ -8,7 +8,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
 
-public class UpdateAcc {
+public class WindowUpdateAcc {
 	Connection conn = null;
 	PreparedStatement pst = null;
 	ResultSet rs = null;
@@ -21,7 +21,7 @@ public class UpdateAcc {
 	private JTextField jtxtFirstName;
 	private JTextField jtxtLastName;
 
-	public UpdateAcc() {
+	public WindowUpdateAcc() {
 		
 		// frame
 		frmUpdateAcc = new JFrame();
@@ -45,12 +45,12 @@ public class UpdateAcc {
 		JButton btnCancel = new JButton("Cancel");
 		JButton btnMainMenu = new JButton("Home");
 		
-		jtxtOldUser = new JTextField(CredentialData.username);
-		jtxtOldPass = new JTextField(CredentialData.password);
-		jtxtNewUser = new JTextField(CredentialData.username);
-		jtxtNewPass = new JTextField(CredentialData.password);
-		jtxtFirstName = new JTextField(CredentialData.firstname); // will only work if user did log in
-		jtxtLastName = new JTextField(CredentialData.lastname); // will only work if user did log in
+		jtxtOldUser = new JTextField(CredentialData.getUsername());
+		jtxtOldPass = new JTextField(CredentialData.getPassword());
+		jtxtNewUser = new JTextField(CredentialData.getUsername());
+		jtxtNewPass = new JTextField(CredentialData.getPassword());
+		jtxtFirstName = new JTextField(CredentialData.getFirstname()); // will only work if user did log in
+		jtxtLastName = new JTextField(CredentialData.getLastname()); // will only work if user did log in
 		jtxtOldUser.setEditable(false);
 		jtxtOldPass.setEditable(false);
 		
@@ -108,7 +108,7 @@ public class UpdateAcc {
 		
 		btnCancel.addActionListener(e -> {
 			frmUpdateAcc.dispose();
-			new Settings();
+			new WindowSettings();
 		});
 		
 		btnApply.addActionListener(e -> {

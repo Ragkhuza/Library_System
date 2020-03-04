@@ -6,11 +6,11 @@ import java.sql.PreparedStatement;
 
 import javax.swing.JButton;
 
-public class Settings {
+public class WindowSettings {
 
 	private JFrame frmSettings;
 
-	public Settings() {
+	public WindowSettings() {
 		frmSettings = new JFrame();
 		frmSettings.setTitle("Settings");
 		frmSettings.setBounds(100, 100, 257, 212);
@@ -37,7 +37,7 @@ public class Settings {
 		
 		btnUpdateAcc.addActionListener(e -> {
  			frmSettings.dispose();
-			new UpdateAcc();
+			new WindowUpdateAcc();
 		});
 		
 		btnDeleteAcc.addActionListener(e -> { 
@@ -47,20 +47,26 @@ public class Settings {
 										JOptionPane.YES_OPTION);
 			
 			if(response == 0) {
-				String id = CredentialData.username;
+				String id = CredentialData.getUsername();
 				
 				deleteAcc(id);
 				
 				frmSettings.dispose();
 				NotificationManager.Success("Account deleted!");
-				new Login();
+				new WindowLogin();
 			}
 			
 		});
 
 		btnBack.addActionListener(e -> { 
  			frmSettings.dispose();
- 			new WindowLibrarian();
+
+			if (CredentialData.getRole().toLowerCase().equals("librarian"))
+				new WindowLibrarian(); // Run the window for librarian
+			else if (CredentialData.getRole().toLowerCase().equals("patron"))
+				new WindowPatron(); // Run the window for Patron
+			else
+				NotificationManager.Error("[WindowSettings.java] Unidentified User Type");
 		});
 
 		btnLogOut.addActionListener(e -> {

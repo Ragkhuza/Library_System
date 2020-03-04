@@ -9,7 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 
-public class Login {
+public class WindowLogin {
 	Connection conn = null;
 	PreparedStatement pst = null;
 	ResultSet rs = null;
@@ -20,12 +20,10 @@ public class Login {
 
 	// main
 	public static void main(String[] args) {
-		new Login();
+		new WindowLogin();
 	}
 
-	public Login() {
-		
-//		refreshTable();
+	public WindowLogin() {
 		frmLogin = new JFrame();
 		frmLogin.setTitle("Login");
 		frmLogin.setBounds(100, 100, 315, 179);
@@ -38,8 +36,8 @@ public class Login {
 		JLabel lblUsername = new JLabel("Username");
 		JLabel lblPassword = new JLabel("Password");
 		
-		jtxtUsername = new JTextField();
-		jtxtPassword = new JPasswordField();
+		jtxtUsername = new JTextField("wasd");
+		jtxtPassword = new JPasswordField("wasd123");
 		
 		JButton btnLogin = new JButton("Login");
 		JButton btnRegister = new JButton("Register");
@@ -81,34 +79,24 @@ public class Login {
 		
 			if(!AdminData.authenticate(username, password)) return;
 
-			NotificationManager.Success("Login successful");
+			NotificationManager.Success(CredentialData.getRole() + " Login Successful.");
 			
 			frmLogin.dispose(); // to close the login system
-			new WindowLibrarian(); // Start the main jFrame
+
+			if (CredentialData.getRole().toLowerCase().equals("librarian"))
+				new WindowLibrarian(); // Run the window for librarian
+			else if (CredentialData.getRole().toLowerCase().equals("patron"))
+				new WindowPatron(); // Run the window for Patron
+			else
+				NotificationManager.Error("[Login.java] Unidentified User Type");
 		});
 
 		
 		btnRegister.addActionListener(e -> { // register button
 			frmLogin.dispose();
- 			new Register();
+ 			new WindowRegister();
 		});
 		
 	}
-	
-	/*public void refreshTable() {
-		if(conn != null) {
-
-			String sql = "SELECT username, password, First_name, last_name FROM Users";
-			System.out.println("refreshTable- SQL : " + sql);
-
-			try {
-				pst = conn.prepareStatement(sql);
-				rs = pst.executeQuery();
-			} catch (Exception e) {
-				NotificationManager.Warning("[refreshTable] " + e.getMessage());
-			}
-		}
-
-	}*/
 	
 }

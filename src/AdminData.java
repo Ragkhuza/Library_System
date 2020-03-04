@@ -30,10 +30,11 @@ public class AdminData {
 					if(userN.equals(rs.getString("USERNAME")) && pass.equals(rs.getString("USERPASSWORD"))) {
 						result = true;
 						// this will fetch user input data
-						CredentialData.username = rs.getString("USERNAME");
-						CredentialData.password = rs.getString("USERPASSWORD");
-						CredentialData.firstname = rs.getString("FIRSTNAME");
-						CredentialData.lastname = rs.getString("LASTNAME");
+						CredentialData.setUsername(rs.getString("USERNAME"));
+						CredentialData.setPassword(rs.getString("USERPASSWORD"));
+						CredentialData.setFirstname(rs.getString("FIRSTNAME"));
+						CredentialData.setLastname(rs.getString("LASTNAME"));
+						CredentialData.setRole(rs.getString("USERTYPE"));
 						System.out.println("AdminData variables initialized");
 					} else
 						System.out.println("Something wrong with the AdminData variables");

@@ -21,7 +21,7 @@ public class WindowLibrarian {
 	JLabel bookIdJLbl, bookTitleJLbl, authorNameJLbl, pubYearJLbl, bookISBNJLbl, bookStatusJLbl;
 	static private JTable jTable;
 	JPanel leftBookFormPanel;
-	JButton btnAddMusic, btnRemove, btnEdit, btnLoadData, btnRefresh, btnSettings, btnCancel;
+	JButton btnAddBook, btnRemove, btnEdit, btnLoadData, btnRefresh, btnSettings, btnCancel;
 
 	final static int J_TABLE_WIDTH = 900;
 
@@ -31,6 +31,10 @@ public class WindowLibrarian {
 	ResultSet rs = null;
 	static DefaultTableModel model = new DefaultTableModel();
 
+	private final static String[] TABLE_COLUMNS = {
+			"BookID", "BookTitle", "BookAuthorName", "BookPublicationYear", "BookISBN", "BookStatus", "Shelf_ShelfID"
+	};
+
 	public WindowLibrarian() {
 		run();
 		initModel();
@@ -39,7 +43,7 @@ public class WindowLibrarian {
 	}
 
 	private void initModel() {
-		Object[] col = {"BookID", "BookTitle", "BookAuthorName", "BookPublicationYear", "BookISBN", "BookStatus", "Shelf_ShelfID"};
+		Object[] col = TABLE_COLUMNS;
 		model.setColumnIdentifiers(col);
 		jTable.setModel(model);
 	}
@@ -52,7 +56,7 @@ public class WindowLibrarian {
 	private void run() {
 		mainWindowJFrame = createMainJFrame("Library Management System");
 
-		leftBookFormPanel = buildMusicFormJPanel();
+		leftBookFormPanel = buildBookFormJPanel();
 		JPanel rightBookTablePanel = new JPanel();
 		JTextArea infoTxt = new JTextArea();
 
@@ -68,9 +72,9 @@ public class WindowLibrarian {
 
 		initializeButtons();
 
-		addButtonsToMusicFrame();
+		addButtonsToBookFrame();
 		
-		btnAddMusic.addActionListener(e -> onBtnAddToLibraryClick());
+		btnAddBook.addActionListener(e -> onBtnAddToLibraryClick());
 
 		btnRemove.addActionListener(e -> {
 			DefaultTableModel model = (DefaultTableModel) jTable.getModel();
@@ -112,7 +116,6 @@ public class WindowLibrarian {
 			btnModify = new JButton("Modify"); // make this single instance
 			btnModify.setBounds(0, 153, 116, 23);
 
-			// nasa music form
 			btnModify.addActionListener(e1 -> {
 
 				BookObject bookObject = createBookObject();
@@ -122,7 +125,7 @@ public class WindowLibrarian {
 				if(!success){
 					NotificationManager.Error("Error occurred in the database process. Please try again.");
 				} else {
-					NotificationManager.Message("Alert","Music was successfully updated!");
+					NotificationManager.Message("Alert","Book was successfully updated!");
 
 					pubYearJTxt.setText("");
 					authorNameJTxt.setText("");
@@ -155,7 +158,7 @@ public class WindowLibrarian {
 
 		btnSettings.addActionListener(e -> {
 			mainWindowJFrame.dispose();
-			new Settings();
+			new WindowSettings();
 		});
 
 		btnLoadData.addActionListener(e -> {
@@ -183,9 +186,7 @@ public class WindowLibrarian {
 		jTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		jTable.setModel(new DefaultTableModel(
 			new Object[][] {},
-			new String[] {
-					"BookID", "BookTitle", "BookAuthorName", "BookPublicationYear", "BookISBN", "BookStatus", "Shelf_ShelfID"
-			}
+			TABLE_COLUMNS
 		));
 
 		JScrollPane scrollPane = new JScrollPane(jTable);
@@ -205,8 +206,8 @@ public class WindowLibrarian {
 		return mJFrame;
 	}
 
-	private void addButtonsToMusicFrame() {
-		mainWindowJFrame.add(btnAddMusic);
+	private void addButtonsToBookFrame() {
+		mainWindowJFrame.add(btnAddBook);
 		mainWindowJFrame.add(btnRemove);
 		mainWindowJFrame.add(btnEdit);
 		mainWindowJFrame.add(btnLoadData);
@@ -215,14 +216,14 @@ public class WindowLibrarian {
 	}
 
 	private void initializeButtons() {
-		btnAddMusic = new JButton("Add to Library");
+		btnAddBook = new JButton("Add to Library");
 		btnRemove = new JButton("Remove from Library");
 		btnEdit = new JButton("Edit Data");
 		btnLoadData = new JButton("Load Data");
 		btnRefresh = new JButton("Refresh Data");
 		btnSettings = new JButton("Settings");
 
-		btnAddMusic.setBounds(10, 11, 244, 23);
+		btnAddBook.setBounds(10, 11, 244, 23);
 		btnRemove.setBounds(10, 36, 244, 23);
 		btnEdit.setBounds(10, 61, 244, 23);
 		btnLoadData.setBounds(10, 86, 244, 23);
@@ -262,7 +263,7 @@ public class WindowLibrarian {
 		bookStatusJTxt.setBounds(119, 125, 125, 20);
 	}
 
-	private JPanel buildMusicFormJPanel() {
+	private JPanel buildBookFormJPanel() {
 		JPanel ms = new JPanel();
 
 		initializeLabels();
@@ -271,7 +272,7 @@ public class WindowLibrarian {
 		ms.setBounds(10, 324, 244, 176);
 		ms.setLayout(null);
 
-		// all buttons within the music Form
+		// all buttons within the book Form
 		ms.add(bookIdJLbl);
 		ms.add(bookTitleJLbl);
 		ms.add(authorNameJLbl);
@@ -362,7 +363,7 @@ public class WindowLibrarian {
 					+ "\", BookTitle =\"" + bookObject.getTitle()
 					+ "\", BookAuthorName =\"" + bookObject.getAuthor()
 					+ "\", BookPublicationYear =\"" + bookObject.getPubYear()
-					+ "\", BookISBN =\"" + bookObject.getIsbm()
+					+ "\", BookISBN =\"" + bookObject.getIsbn()
 					+ "\", BookStatus =\"" + bookObject.getStatus()
 					+ "\" WHERE BookID = '" + bookObject.getId() + "'";
 
@@ -404,7 +405,7 @@ public class WindowLibrarian {
 			sql += "'" + bookObject.getTitle() + "',";
 			sql += "'" + bookObject.getAuthor() + "',";
 			sql += "" + bookObject.getPubYear() + ",";
-			sql += "'" + bookObject.getIsbm() + "',";
+			sql += "'" + bookObject.getIsbn() + "',";
 			sql += "'" + bookObject.getStatus() + "',";
 			sql += "'" + 3 + "'";
 			sql += ")";

@@ -2,27 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4a86737c-2dd3-4bd8-96eb-760a437fa180" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/WindowUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dictionaries/James.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/James.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Database Finals/AdminData.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Database Finals/AdminData.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Database Finals/Login.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Database Finals/Login.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Database Finals/MainWindow.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Database Finals/Register.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Database Finals/Register.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Database Finals/Settings.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Database Finals/Settings.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Database Finals/UpdateAcc.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Database Finals/UpdateAcc.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Database Finals/Validator.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Database Finals/Validator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Database Finals/CredentialData.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Database Finals/CredentialData.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Database Finals/Login.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Database Finals/Register.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Database Finals/Settings.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Database Finals/UpdateAcc.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AdminData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AdminData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Login.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/WindowLibrarian.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Register.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Register.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Settings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Settings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/UpdateAcc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/UpdateAcc.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Validator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Validator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BookObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BookObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CredentialData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CredentialData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/WindowLogin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Register.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/WindowRegister.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Settings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/WindowSettings.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UpdateAcc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/WindowUpdateAcc.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/WindowLibrarian.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/WindowLibrarian.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/WindowUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/WindowPatron.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,6 +52,13 @@
         <item name="Expriment NLSN" type="feb32156:DbDataSourceImpl" />
         <item name="EXPERIMENT: schema" type="3abd1b6a:OraImplModel$Schema" />
         <item name="tables" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="Expriment NLSN" type="feb32156:DbDataSourceImpl" />
+        <item name="EXPERIMENT: schema" type="3abd1b6a:OraImplModel$Schema" />
+        <item name="tables" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="BOOK: table" type="942f455b:OraImplModel$Table" />
       </path>
       <path>
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
@@ -100,6 +104,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="extract.method.default.visibility" value="private" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
@@ -119,8 +124,8 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="Login" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Login" />
+    <configuration name="WindowLogin" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="WindowLogin" />
       <module name="Database Finals" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -128,7 +133,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Login" />
+        <item itemvalue="Application.WindowLogin" />
       </list>
     </recent_temporary>
   </component>
@@ -148,7 +153,7 @@
               <path>
                 <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
                 <item name="root:Expriment NLSN" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-                <item name="com.intellij.database.console.session.MessageBusSession@2d36a4de" type="9fbbdea:ServiceModel$ServiceNode" />
+                <item name="com.intellij.database.console.session.MessageBusSession@726f00d0" type="9fbbdea:ServiceModel$ServiceNode" />
               </path>
             </expand>
             <select />
@@ -173,7 +178,8 @@
       <workItem from="1582377516208" duration="6000" />
       <workItem from="1582483984702" duration="17218000" />
       <workItem from="1583297854635" duration="11545000" />
-      <workItem from="1583309473917" duration="2841000" />
+      <workItem from="1583309473917" duration="3493000" />
+      <workItem from="1583313483631" duration="6313000" />
     </task>
     <task id="LOCAL-00001" summary="Semi refactored mainWindow">
       <created>1582493996052</created>
@@ -210,7 +216,14 @@
       <option name="project" value="LOCAL" />
       <updated>1583300172704</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="can now add book to library&#10;added boilerplate of user window&#10;more code refactoring">
+      <created>1583312364436</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1583312364436</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -224,7 +237,8 @@
     <MESSAGE value="fixed critical bug in add to library form" />
     <MESSAGE value="added refresh button" />
     <MESSAGE value="code refactored" />
-    <option name="LAST_COMMIT_MESSAGE" value="code refactored" />
+    <MESSAGE value="can now add book to library&#10;added boilerplate of user window&#10;more code refactoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="can now add book to library&#10;added boilerplate of user window&#10;more code refactoring" />
   </component>
   <component name="WindowStateProjectService">
     <state x="552" y="199" key="#Project_Structure" timestamp="1582279815588">
@@ -239,6 +253,10 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="414" y="196" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1583309893480" />
+    <state x="765" y="217" key="#com.intellij.ide.util.MemberChooser" timestamp="1583312601948">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="765" y="217" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1583312601948" />
     <state x="803" y="430" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1582279256199">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -251,30 +269,30 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="0" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1582498657429" />
-    <state x="579" y="47" key="CommitChangelistDialog2" timestamp="1583300171806">
+    <state x="579" y="47" key="CommitChangelistDialog2" timestamp="1583312363706">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="579" y="47" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1583300171806" />
+    <state x="579" y="47" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1583312363706" />
     <state x="373" y="213" key="FileChooserDialogImpl" timestamp="1582279784862">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="373" y="213" key="FileChooserDialogImpl/0.0.1920.1080@0.0.1920.1080" timestamp="1582279784862" />
-    <state width="1877" height="221" key="GridCell.Tab.0.bottom" timestamp="1583312319416">
+    <state width="1877" height="214" key="GridCell.Tab.0.bottom" timestamp="1583320036733">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="221" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1583312319416" />
-    <state width="1877" height="221" key="GridCell.Tab.0.center" timestamp="1583312319416">
+    <state width="1877" height="214" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1583320036733" />
+    <state width="1877" height="214" key="GridCell.Tab.0.center" timestamp="1583320036733">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="221" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1583312319416" />
-    <state width="1877" height="221" key="GridCell.Tab.0.left" timestamp="1583312319416">
+    <state width="1877" height="214" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1583320036733" />
+    <state width="1877" height="214" key="GridCell.Tab.0.left" timestamp="1583320036733">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="221" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1583312319416" />
-    <state width="1877" height="221" key="GridCell.Tab.0.right" timestamp="1583312319416">
+    <state width="1877" height="214" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1583320036733" />
+    <state width="1877" height="214" key="GridCell.Tab.0.right" timestamp="1583320036733">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="221" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1583312319416" />
+    <state width="1877" height="214" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1583320036733" />
     <state width="196" height="539" key="HiddenNamespacesPopup" timestamp="1582486441563">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -299,6 +317,10 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="953" y="0" width="974" height="1087" key="dock-window-1/0.0.1920.1080@0.0.1920.1080" timestamp="1582505077796" />
+    <state x="690" y="311" key="extract.method.dialog" timestamp="1583320001831">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="690" y="311" key="extract.method.dialog/0.0.1920.1080@0.0.1920.1080" timestamp="1583320001831" />
     <state x="342" y="120" key="new project wizard" timestamp="1582279305893">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>

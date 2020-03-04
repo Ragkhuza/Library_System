@@ -13,23 +13,26 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
-public class WindowUser {
+public class WindowPatron {
     JFrame mainWindowJFrame;
-    private JTextField bookIDJTxt, bookTitleJTxt, authorNameJTxt, pubYearJTxt, bookISBMJTxt, bookStatusJTxt;
-    JLabel bookIdJLbl, bookTitleJLbl, authorNameJLbl, pubYearJLbl, bookISBNJLbl, bookStatusJLbl;
+    private JTextField bookTitleJTxt, authorNameJTxt, pubYearJTxt, bookISBMJTxt, bookStatusJTxt;
+    JLabel bookTitleJLbl, authorNameJLbl, pubYearJLbl, bookISBNJLbl, bookStatusJLbl;
     static private JTable jTable;
     JPanel leftBookFormPanel;
-    JButton btnAddMusic, btnLoadData, btnRefresh, btnSettings, btnCancel;
+    JButton btnSearchBookMain, btnLoadData, btnRefresh, btnSettings, btnCancel;
 
     final static int J_TABLE_WIDTH = 900;
 
-    private static JButton btnAdd;
+    private static JButton btnSearch;
     Connection conn = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
     static DefaultTableModel model = new DefaultTableModel();
+    private final static String[] TABLE_COLUMNS = {
+            "BookTitle", "BookAuthorName", "BookPublicationYear", "BookISBN", "BookStatus"
+    };
 
-    public WindowUser() {
+    public WindowPatron() {
         run();
         initModel();
         sort();
@@ -37,7 +40,7 @@ public class WindowUser {
     }
 
     private void initModel() {
-        Object[] col = {"BookID", "BookTitle", "BookAuthorName", "BookPublicationYear", "BookISBN", "BookStatus", "Shelf_ShelfID"};
+        Object[] col = TABLE_COLUMNS;
         model.setColumnIdentifiers(col);
         jTable.setModel(model);
     }
@@ -50,7 +53,7 @@ public class WindowUser {
     private void run() {
         mainWindowJFrame = createMainJFrame("Library Management System");
 
-        leftBookFormPanel = buildMusicFormJPanel();
+        leftBookFormPanel = buildBookFormJPanel();
         JPanel rightBookTablePanel = new JPanel();
         JTextArea infoTxt = new JTextArea();
 
@@ -66,13 +69,13 @@ public class WindowUser {
 
         initializeButtons();
 
-        addButtonsToMusicFrame();
+        addButtonsToBookFrame();
 
-        btnAddMusic.addActionListener(e -> onBtnAddToLibraryClick());
+        btnSearchBookMain.addActionListener(e -> onBtnSearchLibraryClick());
 
         btnSettings.addActionListener(e -> {
             mainWindowJFrame.dispose();
-            new Settings();
+            new WindowSettings();
         });
 
         btnLoadData.addActionListener(e -> {
@@ -85,7 +88,6 @@ public class WindowUser {
                 int i = jTable.getSelectedRow();
                 infoTxt.setText("");
                 infoTxt.append("Book Information: \n"
-                        + "\nID:\t" + model.getValueAt(i, 1).toString()
                         + "\nTitle:\t" + model.getValueAt(i, 2).toString()
                         + "\nAuthor Name:\t" + model.getValueAt(i, 3).toString()
                         + "\nPublication Year:\t" + model.getValueAt(i, 4).toString()
@@ -100,9 +102,7 @@ public class WindowUser {
         jTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jTable.setModel(new DefaultTableModel(
                 new Object[][] {},
-                new String[] {
-                        "BookID", "BookTitle", "BookAuthorName", "BookPublicationYear", "BookISBN", "BookStatus", "Shelf_ShelfID"
-                }
+                TABLE_COLUMNS
         ));
 
         JScrollPane scrollPane = new JScrollPane(jTable);
@@ -122,34 +122,32 @@ public class WindowUser {
         return mJFrame;
     }
 
-    private void addButtonsToMusicFrame() {
-        mainWindowJFrame.add(btnAddMusic);
+    private void addButtonsToBookFrame() {
+        mainWindowJFrame.add(btnSearchBookMain);
         mainWindowJFrame.add(btnLoadData);
         mainWindowJFrame.add(btnRefresh);
         mainWindowJFrame.add(btnSettings);
     }
 
     private void initializeButtons() {
-        btnAddMusic = new JButton("Add to Library");
+        btnSearchBookMain = new JButton("Search Library");
         btnLoadData = new JButton("Load Data");
         btnRefresh = new JButton("Refresh Data");
         btnSettings = new JButton("Settings");
 
-        btnAddMusic.setBounds(10, 11, 244, 23);
+        btnSearchBookMain.setBounds(10, 11, 244, 23);
         btnLoadData.setBounds(10, 86, 244, 23);
         btnRefresh.setBounds(10, 111, 244, 23);
         btnSettings.setBounds(10, 136, 244, 23);
     }
 
     private void initializeLabels() {
-        bookIdJLbl = new JLabel("IDS");
         bookTitleJLbl = new JLabel("Title");
         authorNameJLbl = new JLabel("Author");
         pubYearJLbl = new JLabel("Pub. Year");
         bookISBNJLbl = new JLabel("ISBN");
         bookStatusJLbl = new JLabel("Status");
 
-        bookIdJLbl.setBounds(0, 0, 46, 14);
         bookTitleJLbl.setBounds(0, 25, 46, 14);
         authorNameJLbl.setBounds(0, 50, 70, 14);
         pubYearJLbl.setBounds(0, 75, 89, 14);
@@ -158,14 +156,12 @@ public class WindowUser {
     }
 
     private void initializeTextFields() {
-        bookIDJTxt = new JTextField();
         bookTitleJTxt = new JTextField();
         authorNameJTxt = new JTextField();
         pubYearJTxt = new JTextField();
         bookISBMJTxt = new JTextField();
         bookStatusJTxt = new JTextField();
 
-        bookIDJTxt.setBounds(119, 0, 125, 20);
         bookTitleJTxt.setBounds(119, 25, 125, 20);
         authorNameJTxt.setBounds(119, 50, 125, 20);
         pubYearJTxt.setBounds(119, 75, 125, 20);
@@ -173,7 +169,7 @@ public class WindowUser {
         bookStatusJTxt.setBounds(119, 125, 125, 20);
     }
 
-    private JPanel buildMusicFormJPanel() {
+    private JPanel buildBookFormJPanel() {
         JPanel ms = new JPanel();
 
         initializeLabels();
@@ -182,8 +178,7 @@ public class WindowUser {
         ms.setBounds(10, 324, 244, 176);
         ms.setLayout(null);
 
-        // all buttons within the music Form
-        ms.add(bookIdJLbl);
+        // all buttons within the book Form
         ms.add(bookTitleJLbl);
         ms.add(authorNameJLbl);
         ms.add(pubYearJLbl);
@@ -191,7 +186,6 @@ public class WindowUser {
         ms.add(bookStatusJLbl);
 
         ms.add(pubYearJTxt);
-        ms.add(bookIDJTxt);
         ms.add(bookTitleJTxt);
         ms.add(authorNameJTxt);
         ms.add(bookISBMJTxt);
@@ -217,13 +211,11 @@ public class WindowUser {
                 model.setRowCount(0);
 
                 while (rs.next()) {
-                    columnData[0] = rs.getString("BookID");
-                    columnData[1] = rs.getString("BookTitle");
-                    columnData[2] = rs.getString("BookAuthorName");
-                    columnData[3] = rs.getString("BookPublicationYear");
-                    columnData[4] = rs.getString("BookISBN");
-                    columnData[5] = rs.getString("BookStatus");
-                    columnData[6] = rs.getString("Shelf_ShelfID");
+                    columnData[0] = rs.getString("BookTitle");
+                    columnData[1] = rs.getString("BookAuthorName");
+                    columnData[2] = rs.getString("BookPublicationYear");
+                    columnData[3] = rs.getString("BookISBN");
+                    columnData[4] = rs.getString("BookStatus");
                     model.addRow(columnData);
                 }
             } catch (Exception e) {
@@ -233,41 +225,51 @@ public class WindowUser {
 
     }
 
-    private void onBtnAddToLibraryClick() {
+    public void searchLibrary(BookObject bo) {
+        conn = DBConnection.getConnection();
+
+        if(conn != null) {
+
+            String sql = "SELECT * FROM Book WHERE ";
+            sql += "BookTitle LIKE " + "'" + bo.getForSearchQuery(bo.getTitle()) + "' OR ";
+            sql += "BookAuthorName LIKE " + "'" + bo.getForSearchQuery(bo.getAuthor()) + "' OR ";
+            sql += "BookPublicationYear LIKE " + "'" + bo.getForSearchQuery(bo.getPubYear()) + "' OR ";
+            sql += "BookISBN LIKE " + "'" + bo.getForSearchQuery(bo.getIsbn()) + "' OR ";
+            sql += "BookStatus LIKE " + "'" + bo.getForSearchQuery(bo.getStatus()) + "'";
+            System.out.println("refreshTable- SQL : " + sql);
+
+            try {
+                pst = conn.prepareStatement(sql);
+                rs = pst.executeQuery();
+                Object [] columnData = new Object[7];
+                model.setRowCount(0);
+
+                while (rs.next()) {
+                    columnData[0] = rs.getString("BookTitle");
+                    columnData[1] = rs.getString("BookAuthorName");
+                    columnData[2] = rs.getString("BookPublicationYear");
+                    columnData[3] = rs.getString("BookISBN");
+                    columnData[4] = rs.getString("BookStatus");
+                    model.addRow(columnData);
+                }
+            } catch (Exception e) {
+                NotificationManager.Warning("[refreshTable] " + e.getMessage());
+            }
+        }
+
+    }
+
+    private void onBtnSearchLibraryClick() {
         leftBookFormPanel.setVisible(true);
 
-        btnAdd = new JButton("Add"); // make this single instance
-        btnAdd.setEnabled(true);
-        btnAdd.addActionListener(e1 -> {
-            if (
-                    pubYearJTxt.getText().isEmpty() ||
-                            authorNameJTxt.getText().isEmpty()  ||
-                            bookTitleJTxt.getText().isEmpty()  ||
-                            bookIDJTxt.getText().isEmpty()
-            ) {
-                NotificationManager.Message("Alert", "Please fill out all fields.");
-            } else {
-                BookObject bookObject = createBookObject();
-                /*boolean success = addToTable(bookObject);
-
-                //display success or error message depending on boolean returned by addTable()
-                if(!success){
-                    NotificationManager.Error("Error occurred in the database process. Please try again.");
-                } else {
-                    NotificationManager.Success("Book was added successfully");
-
-                    bookIDJTxt.setText("");
-                    bookTitleJTxt.setText("");
-                    authorNameJTxt.setText("");
-                    pubYearJTxt.setText("");
-                    bookISBMJTxt.setText("");
-                    bookStatusJTxt.setText("");
-                }*/
-
-                leftBookFormPanel.setVisible(false);
-            }
+        btnSearch = new JButton("Search"); // make this single instance
+        btnSearch.setEnabled(true);
+        btnSearch.addActionListener(e1 -> {
+            searchLibrary(createBookObject());
+            leftBookFormPanel.setVisible(false);
         });
-        btnAdd.setBounds(0, 153, 116, 23);
+
+        btnSearch.setBounds(0, 153, 116, 23);
 
         btnCancel = new JButton("Cancel");
         btnCancel.setBounds(128, 153, 116, 23);
@@ -275,14 +277,13 @@ public class WindowUser {
             pubYearJTxt.setText("");
             authorNameJTxt.setText("");
             bookTitleJTxt.setText("");
-            bookIDJTxt.setText("");
             bookISBMJTxt.setText("");
             bookStatusJTxt.setText("");
 
             leftBookFormPanel.setVisible(false);
         });
 
-        leftBookFormPanel.add(btnAdd);
+        leftBookFormPanel.add(btnSearch);
         leftBookFormPanel.add(btnCancel);
 
         leftBookFormPanel.revalidate(); // update changes
@@ -292,15 +293,12 @@ public class WindowUser {
     private BookObject createBookObject() {
         BookObject bookObject = new BookObject();
 
-        String bookID = bookIDJTxt.getText();
         String bookTitle = bookTitleJTxt.getText();
         String authorName = authorNameJTxt.getText();
         String pubYear = pubYearJTxt.getText();
         String bookISBM = bookISBMJTxt.getText();
         String bookStatus = bookStatusJTxt.getText();
 
-        System.out.println("book ID" + bookID);
-        bookObject.setId(bookID);
         bookObject.setTitle(bookTitle);
         bookObject.setAuthor(authorName);
         bookObject.setPubYear(pubYear);
