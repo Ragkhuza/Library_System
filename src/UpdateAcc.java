@@ -103,7 +103,7 @@ public class UpdateAcc {
 		
 		btnMainMenu.addActionListener(e -> { 
 			frmUpdateAcc.dispose();
- 			new MainWindow();
+ 			new WindowLibrarian();
 		});
 		
 		btnCancel.addActionListener(e -> {

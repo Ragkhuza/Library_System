@@ -1,3 +1,7 @@
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import java.util.HashMap;
+
 public class Validator {
     protected static String errorMsg = "";
     
@@ -8,6 +12,11 @@ public class Validator {
     	if(!validateLastname(lastname)) return false;
 
     	return true;
+    }
+
+    /* @TODO DOGGO WE NEED TO KNOW HOW TO VALIDATE EACH FIELD*/
+    public static boolean validateRegistration(HashMap fd) {
+        return true;
     }
     
     public static boolean validateFirstname(String name) {

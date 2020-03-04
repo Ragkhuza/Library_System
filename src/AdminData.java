@@ -15,37 +15,36 @@ public class AdminData {
 	public static boolean authenticate(String userN, String pass) {
 		boolean result = false;
 		conn = DBConnection.getConnection(); // establishing of connection to the database
-		
+
+
 		if(conn != null) {
-			String sql = "SELECT * FROM users where username = \"" + userN + "\" AND password = \"" + pass + "\" ;";
+			String sql = "SELECT * FROM LIBRARYUSERS WHERE USERNAME = '"  + userN + "' AND USERPASSWORD = '" + pass + "'";
 			System.out.println("refreshTable- SQL : " + sql);
 
 			try {
 				pst = conn.prepareStatement(sql);
 				rs = pst.executeQuery();
-				
-				rs.next();
-				if(userN.equals(rs.getString("username")) && pass.equals(rs.getString("password"))) {
-					result = true;
-					// this will fetch user input data
-					CredentialData.username = rs.getString("username");
-					CredentialData.password = rs.getString("password");
-					CredentialData.firstname = rs.getString("first_name");
-					CredentialData.lastname = rs.getString("last_name");
-					System.out.println("AdminData variables initialized");
-				} else {
-					System.out.println("Something wrong with the AdminData variables");
-				}
-				
-			}
 
-			catch (Exception e) {
-				JOptionPane.showMessageDialog(null, e);
+				if (rs.next()) {
+					System.out.println("Result: " + rs.getString("USERNAME") + " | " + rs.getString("USERPASSWORD"));
+					if(userN.equals(rs.getString("USERNAME")) && pass.equals(rs.getString("USERPASSWORD"))) {
+						result = true;
+						// this will fetch user input data
+						CredentialData.username = rs.getString("USERNAME");
+						CredentialData.password = rs.getString("USERPASSWORD");
+						CredentialData.firstname = rs.getString("FIRSTNAME");
+						CredentialData.lastname = rs.getString("LASTNAME");
+						System.out.println("AdminData variables initialized");
+					} else
+						System.out.println("Something wrong with the AdminData variables");
+				} else {
+					NotificationManager.Error("Invalid Username or Password!");
+				}
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, "[AdminData.java] " + e);
 			}
-			
-		} else {
+		} else
 			NotificationManager.Error("[AdminData.java] conn is null");
-		}
 		
 		return result;
 	}

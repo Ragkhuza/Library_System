@@ -4,140 +4,135 @@ import javax.swing.JTextField;
 
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
+import java.awt.GridLayout;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 
 public class Register {
 	// for calling on other classes
-	
 	Connection conn = null;
 	PreparedStatement pst = null;
 	ResultSet rs = null;
 
 	private JFrame frmRegister;
-	private JTextField jtxtUsername;
-	private JTextField jtxtFirstName;
-	private JTextField jtxtLastName;
 	private JPasswordField jtxtPassword;
+	private JTextField[] registerFormTxt;
+	private LinkedHashMap fieldsMap = new LinkedHashMap();
 
 	public Register() {
+		String[] registerFromStrings = {
+				"username",
+				"email",
+				"password",
+				"suffix",
+				"firstName",
+				"middleName",
+				"lastName",
+				"houseNum",
+				"street",
+				"barangay",
+				"city",
+				"postalCode",
+				"userType"
+		};
+
+		JLabel[] registerFormLabels = new JLabel[registerFromStrings.length];
+		registerFormTxt = new JTextField[registerFromStrings.length];
+
 		frmRegister = new JFrame();
 		frmRegister.setTitle("Register");
-		frmRegister.setBounds(100, 100, 295, 210);
-		frmRegister.setLayout(null);
+		frmRegister.setLayout(new GridLayout(14, 1));
+		frmRegister.setBounds(100, 100, 295, 400);
 		frmRegister.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmRegister.setLocationRelativeTo(null);
 		frmRegister.setResizable(false);
 		frmRegister.setVisible(true);
-		
-		JLabel lblUsername = new JLabel("Username");
-		JLabel lblPassword = new JLabel("Password");
-		JLabel lblFirstName = new JLabel("First Name");
-		JLabel lblLastName = new JLabel("Last Name");
-		
-		jtxtUsername = new JTextField();
-		jtxtPassword = new JPasswordField();
-		jtxtFirstName = new JTextField();
-		jtxtLastName = new JTextField();
-		
+
+		// Create Buttons
+		for (int i = 0; i < registerFromStrings.length; i++) {
+			// add labels
+			registerFormLabels[i] = new JLabel(registerFromStrings[i]);
+			frmRegister.add(registerFormLabels[i]);
+
+			// if field is password
+			if (registerFromStrings[i].toLowerCase().equals("password")) {
+				jtxtPassword = new JPasswordField();
+				frmRegister.add(jtxtPassword);
+				fieldsMap.put(registerFromStrings[i], jtxtPassword);
+			// else if field is normal JText
+			} else {
+				registerFormTxt[i] = new JTextField();
+				frmRegister.add(registerFormTxt[i]);
+				fieldsMap.put(registerFromStrings[i], registerFormTxt[i]);
+			}
+		}
+
 		JButton btnSignUp = new JButton("Sign Up");
 		JButton btnCancel = new JButton("Cancel");
-		
-		lblUsername.setBounds(10, 13, 98, 14);
-		lblPassword.setBounds(10, 44, 98, 14);
-		lblFirstName.setBounds(10, 74, 98, 14);
-		lblLastName.setBounds(10, 104, 98, 14);
-
-		jtxtUsername.setBounds(118, 8, 150, 25);
-		jtxtPassword.setBounds(118, 39, 150, 25);
-		jtxtFirstName.setBounds(118, 69, 150, 25);
-		jtxtLastName.setBounds(118, 99, 150, 25);
-		
-		btnSignUp.setBounds(39, 135, 89, 23);
-		btnCancel.setBounds(147, 135, 89, 23);
-		
-		
-		frmRegister.add(lblUsername);
-		frmRegister.add(jtxtUsername);
-		frmRegister.add(lblPassword);
-		frmRegister.add(jtxtPassword);
-		frmRegister.add(lblFirstName);
-		frmRegister.add(jtxtFirstName);
-		frmRegister.add(lblLastName);
-		frmRegister.add(jtxtLastName);
-		
 		frmRegister.add(btnSignUp);
 		frmRegister.add(btnCancel);
-		
+
 		// sign up button
 		btnSignUp.addActionListener(e -> {
+			// register user
 			register();
-			
-			 // close Register window
-			
-			// Go back to Login page
-			
 		});
-		
-		
+
 		// cancel button
-		
 		btnCancel.addActionListener(e -> {
 			frmRegister.dispose(); // close Register window
-			
+
 			// Go back to Login page
 			new Login();
 		});
 	}
-	
+
 	public boolean register(){
-		// @DOGGO HAHAHA no validation
-		String username = jtxtUsername.getText();
-		@SuppressWarnings("deprecation")
-		String password = jtxtPassword.getText();
-		String first_name = jtxtFirstName.getText();
-		String last_name = jtxtLastName.getText();
-		
 		// @DOGGOS this is the magic
-		if( !Validator.validateRegistration(username, password, first_name, last_name) ) {
+		if( !Validator.validateRegistration(fieldsMap) ) {
 			Validator.displayError();
 			return false;
 		}
-		// RUN BRIEL RUN
-		
-		jtxtUsername.setText(username);
-		jtxtPassword.setText(password);
-		jtxtFirstName.setText(first_name);
-		jtxtLastName.setText(last_name);
-		
+
 		boolean success = false;
 
 		conn = DBConnection.getConnection();
 
 		if(conn != null) {
-			String sql = "INSERT INTO Users (Username, Password, First_name, Last_name) ";
-			sql += "VALUES (";
-			sql += "'" + username + "',";
-			sql += "'" + password + "',";
-			sql += "'" + first_name + "',";
-			sql += "'" + last_name + "'";
-			sql += ")";
+			String sql = "BEGIN addUser(seq_user_id.nextval,'";
+
+			int i = 0;
+			for (Object key : fieldsMap.keySet()) {
+				i++;
+				String k = (String)key;
+				System.out.println("getting " + k + " from hashmap");
+				if (!k.toLowerCase().equals("password")) {
+					if (i < fieldsMap.size())
+						sql += ((JTextField) fieldsMap.get(k)).getText() + "', '";
+					else
+						sql += ((JTextField) fieldsMap.get(k)).getText() + "'); end;";
+				} else {
+					sql += ((JPasswordField) fieldsMap.get(k)).getText() + "', '";
+				}
+			}
 
 			System.out.println("register- SQL : " + sql);
- 
+
 			try {
 				pst = conn.prepareStatement(sql);
 				int count = pst.executeUpdate();
-				
+
 				// check if updated
 				if(count > 0) {
 					success = true;
 					NotificationManager.Success("Registered succesfully!");
-					
+
 					frmRegister.dispose();
 					new Login();
-					
+
 				} else {
 					NotificationManager.Error("[UpdateAcc.java]Register unsuccessful");
 				}
@@ -146,8 +141,8 @@ public class Register {
 				NotificationManager.Error("[UpdateAcc.java] " + e.getMessage());
 			}
 		}
-		
+
 		return success;
 		};
-	
+
 }

@@ -60,7 +60,7 @@ public class Settings {
 
 		btnBack.addActionListener(e -> { 
  			frmSettings.dispose();
- 			new MainWindow();
+ 			new WindowLibrarian();
 		});
 
 		btnLogOut.addActionListener(e -> {

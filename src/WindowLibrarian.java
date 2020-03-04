@@ -15,7 +15,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
-public class MainWindow {
+public class WindowLibrarian {
 	JFrame mainWindowJFrame;
 	private JTextField bookIDJTxt, bookTitleJTxt, authorNameJTxt, pubYearJTxt, bookISBMJTxt, bookStatusJTxt;
 	JLabel bookIdJLbl, bookTitleJLbl, authorNameJLbl, pubYearJLbl, bookISBNJLbl, bookStatusJLbl;
@@ -31,7 +31,7 @@ public class MainWindow {
 	ResultSet rs = null;
 	static DefaultTableModel model = new DefaultTableModel();
 
-	public MainWindow() {
+	public WindowLibrarian() {
 		run();
 		initModel();
 		sort();
@@ -297,21 +297,21 @@ public class MainWindow {
 		btnAdd.setEnabled(true);
 		btnAdd.addActionListener(e1 -> {
 			if (
-					pubYearJTxt.getText().isEmpty() ||
-					authorNameJTxt.getText().isEmpty()  ||
-					bookTitleJTxt.getText().isEmpty()  ||
-					bookIDJTxt.getText().isEmpty()
+				pubYearJTxt.getText().isEmpty() ||
+				authorNameJTxt.getText().isEmpty()  ||
+				bookTitleJTxt.getText().isEmpty()  ||
+				bookIDJTxt.getText().isEmpty()
 			) {
 				NotificationManager.Message("Alert", "Please fill out all fields.");
 			} else {
 				BookObject bookObject = createBookObject();
-				boolean success = addTable(bookObject);
+				boolean success = addToTable(bookObject);
 
 				//display success or error message depending on boolean returned by addTable()
 				if(!success){
 					NotificationManager.Error("Error occurred in the database process. Please try again.");
 				} else {
-					NotificationManager.Success("Music was added successfully");
+					NotificationManager.Success("Book was added successfully");
 
 					bookIDJTxt.setText("");
 					bookTitleJTxt.setText("");
@@ -319,8 +319,8 @@ public class MainWindow {
 					pubYearJTxt.setText("");
 					bookISBMJTxt.setText("");
 					bookStatusJTxt.setText("");
-
 				}
+
 				leftBookFormPanel.setVisible(false);
 			}
 		});
@@ -381,9 +381,7 @@ public class MainWindow {
 				refreshTable();
 			}
 
-		}
-
-		catch (Exception e) {
+		} catch (Exception e) {
 			NotificationManager.Warning("[modifyTable] " + e.getMessage());
 		}
 
@@ -392,7 +390,7 @@ public class MainWindow {
 	}
 
 	// adding data to the table
-	public boolean addTable(BookObject bookObject) {
+	public boolean addToTable(BookObject bookObject) {
 		boolean success= false;
 
 		conn = DBConnection.getConnection();

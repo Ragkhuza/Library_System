@@ -25,7 +25,7 @@ public class Login {
 
 	public Login() {
 		
-		refreshTable();
+//		refreshTable();
 		frmLogin = new JFrame();
 		frmLogin.setTitle("Login");
 		frmLogin.setBounds(100, 100, 315, 179);
@@ -70,7 +70,7 @@ public class Login {
 
 			/* @TODO @DOGGO DISABLE LOGIN AUTHENTICATION FOR NOW*/
 			/* @TODO DONT DELETE THIS BLOCK */
-			/*String username = jtxtUsername.getText();
+			String username = jtxtUsername.getText();
 			@SuppressWarnings("deprecation")
 			String password = jtxtPassword.getText();
 			
@@ -80,11 +80,11 @@ public class Login {
 			}
 		
 			if(!AdminData.authenticate(username, password)) return;
-			
-			NotificationManager.Success("Login successful");*/
+
+			NotificationManager.Success("Login successful");
 			
 			frmLogin.dispose(); // to close the login system
-			new MainWindow(); // Start the main jFrame
+			new WindowLibrarian(); // Start the main jFrame
 		});
 
 		
@@ -95,7 +95,7 @@ public class Login {
 		
 	}
 	
-	public void refreshTable() {
+	/*public void refreshTable() {
 		if(conn != null) {
 
 			String sql = "SELECT username, password, First_name, last_name FROM Users";
@@ -109,6 +109,6 @@ public class Login {
 			}
 		}
 
-	}
+	}*/
 	
 }

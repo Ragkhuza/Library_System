@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="MusicSystem" uuid="d408a9e6-040e-486a-ae5b-3f5f738b071f">
-      <driver-ref>sqlite.xerial</driver-ref>
+    <data-source source="LOCAL" name="Expriment NLSN" uuid="5c99ccab-8a74-42e2-acde-f9e6b59e8a84">
+      <driver-ref>oracle</driver-ref>
       <synchronize>true</synchronize>
-      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:C:\Users\James\Desktop\Database Finals\MusicSystem.db</jdbc-url>
-    </data-source>
-    <data-source source="LOCAL" name="MusicSystem [2]" uuid="c768278f-af8c-4e0a-a707-801fcc98ab5b">
-      <driver-ref>sqlite.xerial</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:C:\Users\James\Desktop\Database Finals\src\MusicSystem.db</jdbc-url>
+      <auto-commit>false</auto-commit>
+      <jdbc-driver>oracle.jdbc.OracleDriver</jdbc-driver>
+      <jdbc-url>jdbc:oracle:thin:@192.168.43.59:8765:nlsn</jdbc-url>
     </data-source>
   </component>
 </project>
