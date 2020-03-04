@@ -2,8 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4a86737c-2dd3-4bd8-96eb-760a437fa180" name="Default Changelist" comment="code refactored">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AdminData.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Alert.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Checker.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CredentialData.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DBConnection.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Login.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainWindow.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MusicMgmtSystem.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MusicObject.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MusicSystem.db" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Register.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Run.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Settings.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UpdateAcc.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sqlite-jdbc-3.27.2.1.jar" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -165,7 +179,7 @@
       <workItem from="1582483984702" duration="17218000" />
       <workItem from="1583297854635" duration="11545000" />
       <workItem from="1583309473917" duration="3493000" />
-      <workItem from="1583313483631" duration="7032000" />
+      <workItem from="1583313483631" duration="7608000" />
     </task>
     <task id="LOCAL-00001" summary="Semi refactored mainWindow">
       <created>1582493996052</created>
@@ -274,10 +288,10 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="0" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1582498657429" />
-    <state x="579" y="47" key="CommitChangelistDialog2" timestamp="1583320758101">
+    <state x="579" y="47" key="CommitChangelistDialog2" timestamp="1583321474065">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="579" y="47" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1583320758101" />
+    <state x="579" y="47" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1583321474065" />
     <state x="92" y="92" width="1736" height="896" key="DiffContextDialog" timestamp="1583320907149">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
