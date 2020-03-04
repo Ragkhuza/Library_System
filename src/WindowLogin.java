@@ -79,13 +79,13 @@ public class WindowLogin {
 		
 			if(!AdminData.authenticate(username, password)) return;
 
-			NotificationManager.Success(CredentialData.getRole() + " Login Successful.");
+			NotificationManager.Success(CredentialData.getUserType() + " Login Successful.");
 			
 			frmLogin.dispose(); // to close the login system
 
-			if (CredentialData.getRole().toLowerCase().equals("librarian"))
+			if (CredentialData.getUserType().toLowerCase().equals("librarian"))
 				new WindowLibrarian(); // Run the window for librarian
-			else if (CredentialData.getRole().toLowerCase().equals("patron"))
+			else if (CredentialData.getUserType().toLowerCase().equals("patron"))
 				new WindowPatron(); // Run the window for Patron
 			else
 				NotificationManager.Error("[Login.java] Unidentified User Type");

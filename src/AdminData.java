@@ -31,10 +31,18 @@ public class AdminData {
 						result = true;
 						// this will fetch user input data
 						CredentialData.setUsername(rs.getString("USERNAME"));
+						CredentialData.setEmail(rs.getString("EMAIL"));
 						CredentialData.setPassword(rs.getString("USERPASSWORD"));
-						CredentialData.setFirstname(rs.getString("FIRSTNAME"));
-						CredentialData.setLastname(rs.getString("LASTNAME"));
-						CredentialData.setRole(rs.getString("USERTYPE"));
+						CredentialData.setSuffix(rs.getString("SUFFIX"));
+						CredentialData.setFirstName(rs.getString("FIRSTNAME"));
+						CredentialData.setMiddleName(rs.getString("MIDDLENAME"));
+						CredentialData.setLastName(rs.getString("LASTNAME"));
+						CredentialData.setHouseNum(rs.getString("HOUSENUM"));
+						CredentialData.setStreet(rs.getString("STREET"));
+						CredentialData.setBarangay(rs.getString("BARANGAY"));
+						CredentialData.setCity(rs.getString("CITY"));
+						CredentialData.setPostalCode(rs.getString("POSTALCODE"));
+						CredentialData.setUserType(rs.getString("USERTYPE"));
 						System.out.println("AdminData variables initialized");
 					} else
 						System.out.println("Something wrong with the AdminData variables");

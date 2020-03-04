@@ -1,15 +1,7 @@
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -19,7 +11,7 @@ public class WindowPatron {
     JLabel bookTitleJLbl, authorNameJLbl, pubYearJLbl, bookISBNJLbl, bookStatusJLbl;
     static private JTable jTable;
     JPanel leftBookFormPanel;
-    JButton btnSearchBookMain, btnLoadData, btnRefresh, btnSettings, btnCancel;
+    JButton btnSearchBookMain, btnRemove, btnLoadData, btnRefresh, btnSettings, btnCancel;
 
     final static int J_TABLE_WIDTH = 900;
 
@@ -73,6 +65,10 @@ public class WindowPatron {
 
         btnSearchBookMain.addActionListener(e -> onBtnSearchLibraryClick());
 
+        btnRemove.addActionListener(e -> {
+            NotificationManager.Message("Message", "[COMING SOON]Select a book to borrow.");
+        });
+
         btnSettings.addActionListener(e -> {
             mainWindowJFrame.dispose();
             new WindowSettings();
@@ -124,6 +120,7 @@ public class WindowPatron {
 
     private void addButtonsToBookFrame() {
         mainWindowJFrame.add(btnSearchBookMain);
+        mainWindowJFrame.add(btnRemove);
         mainWindowJFrame.add(btnLoadData);
         mainWindowJFrame.add(btnRefresh);
         mainWindowJFrame.add(btnSettings);
@@ -131,11 +128,13 @@ public class WindowPatron {
 
     private void initializeButtons() {
         btnSearchBookMain = new JButton("Search Library");
+        btnRemove = new JButton("Borrow Book");
         btnLoadData = new JButton("Load Data");
         btnRefresh = new JButton("Refresh Data");
         btnSettings = new JButton("Settings");
 
         btnSearchBookMain.setBounds(10, 11, 244, 23);
+        btnRemove.setBounds(10, 36, 244, 23);
         btnLoadData.setBounds(10, 86, 244, 23);
         btnRefresh.setBounds(10, 111, 244, 23);
         btnSettings.setBounds(10, 136, 244, 23);

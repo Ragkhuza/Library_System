@@ -37,7 +37,7 @@ public class WindowSettings {
 		
 		btnUpdateAcc.addActionListener(e -> {
  			frmSettings.dispose();
-			new WindowUpdateAcc();
+			new WindowUpdateAccount();
 		});
 		
 		btnDeleteAcc.addActionListener(e -> { 
@@ -62,9 +62,9 @@ public class WindowSettings {
 		btnBack.addActionListener(e -> { 
  			frmSettings.dispose();
 
-			if (CredentialData.getRole().toLowerCase().equals("librarian"))
+			if (CredentialData.getUserType().toLowerCase().equals("librarian"))
 				new WindowLibrarian(); // Run the window for librarian
-			else if (CredentialData.getRole().toLowerCase().equals("patron"))
+			else if (CredentialData.getUserType().toLowerCase().equals("patron"))
 				new WindowPatron(); // Run the window for Patron
 			else
 				NotificationManager.Error("[WindowSettings.java] Unidentified User Type");

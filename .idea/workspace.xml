@@ -2,22 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4a86737c-2dd3-4bd8-96eb-760a437fa180" name="Default Changelist" comment="code refactored">
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/James.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/James.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdminData.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Alert.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Checker.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CredentialData.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DBConnection.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Login.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainWindow.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MusicMgmtSystem.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MusicObject.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MusicSystem.db" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Register.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Run.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Settings.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UpdateAcc.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sqlite-jdbc-3.27.2.1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Database Finals/AdminData.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Database Finals/AdminData.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Database Finals/CredentialData.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Database Finals/CredentialData.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AdminData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AdminData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CredentialData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CredentialData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/WindowLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/WindowLogin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/WindowPatron.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/WindowPatron.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/WindowRegister.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/WindowRegister.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/WindowSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/WindowSettings.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/WindowUpdateAcc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/WindowUpdateAccount.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -179,7 +174,7 @@
       <workItem from="1582483984702" duration="17218000" />
       <workItem from="1583297854635" duration="11545000" />
       <workItem from="1583309473917" duration="3493000" />
-      <workItem from="1583313483631" duration="7608000" />
+      <workItem from="1583313483631" duration="12428000" />
     </task>
     <task id="LOCAL-00001" summary="Semi refactored mainWindow">
       <created>1582493996052</created>
@@ -272,10 +267,10 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="414" y="196" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1583309893480" />
-    <state x="765" y="217" key="#com.intellij.ide.util.MemberChooser" timestamp="1583312601948">
+    <state x="765" y="217" key="#com.intellij.ide.util.MemberChooser" timestamp="1583324111603">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="765" y="217" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1583312601948" />
+    <state x="765" y="217" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1583324111603" />
     <state x="803" y="430" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1582279256199">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -300,22 +295,22 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="373" y="213" key="FileChooserDialogImpl/0.0.1920.1080@0.0.1920.1080" timestamp="1582279784862" />
-    <state width="1877" height="214" key="GridCell.Tab.0.bottom" timestamp="1583320862016">
+    <state width="1877" height="155" key="GridCell.Tab.0.bottom" timestamp="1583326167879">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="214" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1583320862016" />
-    <state width="1877" height="214" key="GridCell.Tab.0.center" timestamp="1583320862016">
+    <state width="1877" height="155" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1583326167879" />
+    <state width="1877" height="155" key="GridCell.Tab.0.center" timestamp="1583326167879">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="214" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1583320862016" />
-    <state width="1877" height="214" key="GridCell.Tab.0.left" timestamp="1583320862016">
+    <state width="1877" height="155" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1583326167879" />
+    <state width="1877" height="155" key="GridCell.Tab.0.left" timestamp="1583326167879">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="214" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1583320862016" />
-    <state width="1877" height="214" key="GridCell.Tab.0.right" timestamp="1583320862016">
+    <state width="1877" height="155" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1583326167879" />
+    <state width="1877" height="155" key="GridCell.Tab.0.right" timestamp="1583326167879">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="214" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1583320862016" />
+    <state width="1877" height="155" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1583326167879" />
     <state width="196" height="539" key="HiddenNamespacesPopup" timestamp="1582486441563">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -348,13 +343,13 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="342" y="120" key="new project wizard/0.0.1920.1080@0.0.1920.1080" timestamp="1582279305893" />
-    <state x="616" y="250" key="run.anything.popup" timestamp="1582493707691">
+    <state x="616" y="250" width="672" height="677" key="run.anything.popup" timestamp="1583324956048">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="616" y="250" key="run.anything.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1582493707691" />
-    <state x="623" y="235" width="672" height="678" key="search.everywhere.popup" timestamp="1583304183900">
+    <state x="616" y="250" width="672" height="677" key="run.anything.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1583324956048" />
+    <state x="623" y="235" width="672" height="678" key="search.everywhere.popup" timestamp="1583322532999">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="623" y="235" width="672" height="678" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1583304183900" />
+    <state x="623" y="235" width="672" height="678" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1583322532999" />
   </component>
 </project>

@@ -3,9 +3,12 @@
     <words>
       <w>barangay</w>
       <w>firstname</w>
+      <w>housenum</w>
       <w>isbm</w>
       <w>jtxt</w>
       <w>lastname</w>
+      <w>middlename</w>
+      <w>postalcode</w>
       <w>userpassword</w>
       <w>usertype</w>
     </words>

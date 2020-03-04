@@ -22,7 +22,7 @@ public class WindowRegister {
 	private LinkedHashMap fieldsMap = new LinkedHashMap();
 
 	public WindowRegister() {
-		String[] registerFromStrings = {
+		String[] registerFormStrings = {
 				"username",
 				"email",
 				"password",
@@ -38,8 +38,8 @@ public class WindowRegister {
 				"userType"
 		};
 
-		JLabel[] registerFormLabels = new JLabel[registerFromStrings.length];
-		registerFormTxt = new JTextField[registerFromStrings.length];
+		JLabel[] registerFormLabels = new JLabel[registerFormStrings.length];
+		registerFormTxt = new JTextField[registerFormStrings.length];
 
 		frmRegister = new JFrame();
 		frmRegister.setTitle("Register");
@@ -51,21 +51,21 @@ public class WindowRegister {
 		frmRegister.setVisible(true);
 
 		// Create Buttons
-		for (int i = 0; i < registerFromStrings.length; i++) {
+		for (int i = 0; i < registerFormStrings.length; i++) {
 			// add labels
-			registerFormLabels[i] = new JLabel(registerFromStrings[i]);
+			registerFormLabels[i] = new JLabel(registerFormStrings[i]);
 			frmRegister.add(registerFormLabels[i]);
 
 			// if field is password
-			if (registerFromStrings[i].toLowerCase().equals("password")) {
+			if (registerFormStrings[i].toLowerCase().equals("password")) {
 				jtxtPassword = new JPasswordField();
 				frmRegister.add(jtxtPassword);
-				fieldsMap.put(registerFromStrings[i], jtxtPassword);
+				fieldsMap.put(registerFormStrings[i], jtxtPassword);
 			// else if field is normal JText
 			} else {
 				registerFormTxt[i] = new JTextField();
 				frmRegister.add(registerFormTxt[i]);
-				fieldsMap.put(registerFromStrings[i], registerFormTxt[i]);
+				fieldsMap.put(registerFormStrings[i], registerFormTxt[i]);
 			}
 		}
 
