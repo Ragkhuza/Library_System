@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4a86737c-2dd3-4bd8-96eb-760a437fa180" name="Default Changelist" comment="fixed critical bug in add to library form">
+    <list default="true" id="4a86737c-2dd3-4bd8-96eb-760a437fa180" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Database Finals/MainWindow$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Database Finals/MainWindow$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DBConnection.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DBConnection.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/oop-musicsystem-master.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Database Finals/DBConnection.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Database Finals/DBConnection.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Database Finals/MainWindow$1.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Database Finals/MainWindow.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Database Finals/MainWindow.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DBConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DBConnection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Run.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,7 +120,8 @@
       <workItem from="1582279968857" duration="2155000" />
       <workItem from="1582376604592" duration="234000" />
       <workItem from="1582377516208" duration="6000" />
-      <workItem from="1582483984702" duration="13839000" />
+      <workItem from="1582483984702" duration="17218000" />
+      <workItem from="1583297854635" duration="2253000" />
     </task>
     <task id="LOCAL-00001" summary="Semi refactored mainWindow">
       <created>1582493996052</created>
@@ -137,17 +144,27 @@
       <option name="project" value="LOCAL" />
       <updated>1582500335512</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="added refresh button">
+      <created>1582501401639</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1582501401639</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="Semi refactored mainWindow" />
     <MESSAGE value="fixed refresh function" />
     <MESSAGE value="fixed critical bug in add to library form" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed critical bug in add to library form" />
+    <MESSAGE value="added refresh button" />
+    <option name="LAST_COMMIT_MESSAGE" value="added refresh button" />
   </component>
   <component name="WindowStateProjectService">
     <state x="552" y="199" key="#Project_Structure" timestamp="1582279815588">
@@ -174,30 +191,30 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="0" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1582498657429" />
-    <state x="579" y="47" key="CommitChangelistDialog2" timestamp="1582500341221">
+    <state x="579" y="47" key="CommitChangelistDialog2" timestamp="1582501401017">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="579" y="47" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1582500341221" />
+    <state x="579" y="47" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1582501401017" />
     <state x="373" y="213" key="FileChooserDialogImpl" timestamp="1582279784862">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="373" y="213" key="FileChooserDialogImpl/0.0.1920.1080@0.0.1920.1080" timestamp="1582279784862" />
-    <state width="914" height="274" key="GridCell.Tab.0.bottom" timestamp="1582501338355">
+    <state width="1877" height="179" key="GridCell.Tab.0.bottom" timestamp="1583300138459">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="914" height="274" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1582501338355" />
-    <state width="914" height="274" key="GridCell.Tab.0.center" timestamp="1582501338355">
+    <state width="1877" height="179" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1583300138459" />
+    <state width="1877" height="179" key="GridCell.Tab.0.center" timestamp="1583300138458">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="914" height="274" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1582501338355" />
-    <state width="914" height="274" key="GridCell.Tab.0.left" timestamp="1582501338355">
+    <state width="1877" height="179" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1583300138458" />
+    <state width="1877" height="179" key="GridCell.Tab.0.left" timestamp="1583300138458">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="914" height="274" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1582501338355" />
-    <state width="914" height="274" key="GridCell.Tab.0.right" timestamp="1582501338355">
+    <state width="1877" height="179" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1583300138458" />
+    <state width="1877" height="179" key="GridCell.Tab.0.right" timestamp="1583300138458">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="914" height="274" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1582501338355" />
+    <state width="1877" height="179" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1583300138458" />
     <state width="196" height="539" key="HiddenNamespacesPopup" timestamp="1582486441563">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -206,14 +223,18 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="440" y="115" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1582486972559" />
+    <state x="552" y="270" key="Vcs.Push.Dialog.v2" timestamp="1583300160990">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="552" y="270" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1583300160990" />
     <state x="567" y="152" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1582500933140">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="567" y="152" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1582500933140" />
-    <state x="953" y="0" width="974" height="1087" key="dock-window-1" timestamp="1582499146356">
+    <state x="953" y="0" width="974" height="1087" key="dock-window-1" timestamp="1582505077796">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="953" y="0" width="974" height="1087" key="dock-window-1/0.0.1920.1080@0.0.1920.1080" timestamp="1582499146356" />
+    <state x="953" y="0" width="974" height="1087" key="dock-window-1/0.0.1920.1080@0.0.1920.1080" timestamp="1582505077796" />
     <state x="342" y="120" key="new project wizard" timestamp="1582279305893">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>

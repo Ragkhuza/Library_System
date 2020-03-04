@@ -1,5 +1,3 @@
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,7 +20,7 @@ public class MainWindow {
 	private JTextField bookIDJTxt, bookTitleJTxt, authorNameJTxt, pubYearJTxt, bookISBMJTxt, bookStatusJTxt;
 	JLabel bookIdJLbl, bookTitleJLbl, authorNameJLbl, pubYearJLbl, bookISBNJLbl, bookStatusJLbl;
 	static private JTable jTable;
-	JPanel bookForm;
+	JPanel leftBookFormPanel;
 	JButton btnAddMusic, btnRemove, btnEdit, btnLoadData, btnRefresh, btnSettings, btnCancel;
 
 	final static int J_TABLE_WIDTH = 900;
@@ -54,19 +52,19 @@ public class MainWindow {
 	private void run() {
 		mainWindowJFrame = createMainJFrame("Library Management System");
 
-		bookForm = buildMusicFormJPanel();
-		JPanel panel = new JPanel();
-		JTextArea jtxtData = new JTextArea();
+		leftBookFormPanel = buildMusicFormJPanel();
+		JPanel rightBookTablePanel = new JPanel();
+		JTextArea infoTxt = new JTextArea();
 
-		panel.setBounds(10, 170, 244, 143);
-		panel.setLayout(null);
-		panel.add(jtxtData);
+		rightBookTablePanel.setBounds(10, 170, 244, 143);
+		rightBookTablePanel.setLayout(null);
+		rightBookTablePanel.add(infoTxt);
 
-		jtxtData.setEditable(false);
-		jtxtData.setBounds(0, 0, 244, 143);
+		infoTxt.setEditable(false);
+		infoTxt.setBounds(0, 0, 244, 143);
 
-		mainWindowJFrame.add(bookForm);
-		mainWindowJFrame.add(panel);
+		mainWindowJFrame.add(leftBookFormPanel);
+		mainWindowJFrame.add(rightBookTablePanel);
 
 		initializeButtons();
 
@@ -94,7 +92,6 @@ public class MainWindow {
 		});
 
 		btnEdit.addActionListener(e -> { // modify data kasama ng mga load data
-
 			conn = DBConnection.getConnection();
 
 			int i = jTable.getSelectedRow(); // returns -1 if not table selected
@@ -104,58 +101,53 @@ public class MainWindow {
 				return;
 			}
 
-			pubYearJTxt.setText((String)model.getValueAt(i, 1).toString()); // Nag error kapag walang laman
-			authorNameJTxt.setText((String)model.getValueAt(i, 2).toString());
-			bookTitleJTxt.setText((String)model.getValueAt(i, 3).toString());
-			bookIDJTxt.setText((String)model.getValueAt(i, 4).toString());
-			bookISBMJTxt.setText((String)model.getValueAt(i, 5).toString());
-			bookStatusJTxt.setText((String)model.getValueAt(i, 6).toString());
+			bookIDJTxt.setText(model.getValueAt(i, 0).toString());
+			bookTitleJTxt.setText(model.getValueAt(i, 1).toString());
+			authorNameJTxt.setText(model.getValueAt(i, 2).toString());
+			pubYearJTxt.setText(model.getValueAt(i, 3).toString()); // Nag error kapag walang laman
+			bookISBMJTxt.setText(model.getValueAt(i, 4).toString());
+			bookStatusJTxt.setText(model.getValueAt(i, 5).toString());
 
 			// Modify button from the form
 			btnModify = new JButton("Modify"); // make this single instance
 			btnModify.setBounds(0, 153, 116, 23);
 
-			btnModify.addActionListener(new ActionListener(){ // nasa music form
+			// nasa music form
+			btnModify.addActionListener(e1 -> {
 
-				public void actionPerformed(ActionEvent e) {
+				BookObject bookObject = createBookObject();
+				boolean success = modifyTable(bookObject);
 
-					BookObject bookObject = createMusicObject();
-					boolean success = false;
-					success = modifyTable(bookObject);
+				//display success or error message depending on boolean returned by addTable()
+				if(!success){
+					NotificationManager.Error("Error occurred in the database process. Please try again.");
+				} else {
+					NotificationManager.Message("Alert","Music was successfully updated!");
 
-					//display success or error message depending on boolean returned by addTable()
-					if(!success){
-						NotificationManager.Error("Error occurred in the database process. Please try again.");
-					} else {
-						NotificationManager.Message("Alert","Music was successfully updated!");
+					pubYearJTxt.setText("");
+					authorNameJTxt.setText("");
+					bookTitleJTxt.setText("");
+					bookIDJTxt.setText("");
+					bookISBMJTxt.setText("");
+					bookStatusJTxt.setText("");
 
-						pubYearJTxt.setText("");
-						authorNameJTxt.setText("");
-						bookTitleJTxt.setText("");
-						bookIDJTxt.setText("");
-						bookISBMJTxt.setText("");
-						bookStatusJTxt.setText("");
-
-						bookForm.setVisible(false);
-					}
+					leftBookFormPanel.setVisible(false);
 				}
-
 			});
 
 			try {
-				bookForm.remove(btnAdd);
+				leftBookFormPanel.remove(btnAdd);
 			} catch(NullPointerException ex) {
-				System.out.println("btnmodify not yet clicked, nothing to worry about doggo"); // will throw exception if btnmodify wasn't clicked
+				System.out.println("btn modify not yet clicked, nothing to worry about doggo"); // will throw exception if btnmodify wasn't clicked
 			}
 
-			bookForm.add(btnModify); // button needs to be remove first
-			bookForm.revalidate(); // update changes
-			bookForm.repaint(); // update changes
+			leftBookFormPanel.add(btnModify); // button needs to be remove first
+			leftBookFormPanel.revalidate(); // update changes
+			leftBookFormPanel.repaint(); // update changes
 			if(jTable.getSelectedRow() < 0) {
 				NotificationManager.Error("Select a row to modify.");
-			}
-			else {
-				bookForm.setVisible(true);
+			} else {
+				leftBookFormPanel.setVisible(true);
 				btnModify.setEnabled(true);
 			}
 
@@ -169,30 +161,23 @@ public class MainWindow {
 		btnLoadData.addActionListener(e -> {
 			DefaultTableModel model = (DefaultTableModel) jTable.getModel();
 
-			if(jTable.getSelectedRow() < 0) {
+			if (jTable.getSelectedRow() < 0) {
 				NotificationManager.Error("Select a row to display");
 			} else {
-
 				conn = DBConnection.getConnection();
-
 				int i = jTable.getSelectedRow();
-
-					jtxtData.setText("");
-					jtxtData.append("Track Information: \n"
-							+ "\nTitle:\t" + (String)model.getValueAt(i, 1).toString()
-							+ "\nArtist:\t" + (String)model.getValueAt(i, 2).toString()
-							+ "\nAlbum:\t" + (String)model.getValueAt(i, 3).toString()
-							+ "\nAlbum artist:\t" + (String)model.getValueAt(i, 4).toString()
-							+ "\nYear:\t" + (String)model.getValueAt(i, 5).toString()
-							+ "\nGenre:\t" + (String)model.getValueAt(i, 6).toString());
-
+				infoTxt.setText("");
+				infoTxt.append("Book Information: \n"
+						+ "\nID:\t" + model.getValueAt(i, 1).toString()
+						+ "\nTitle:\t" + model.getValueAt(i, 2).toString()
+						+ "\nAuthor Name:\t" + model.getValueAt(i, 3).toString()
+						+ "\nPublication Year:\t" + model.getValueAt(i, 4).toString()
+						+ "\nISBN:\t" + model.getValueAt(i, 5).toString()
+						+ "\nStatus:\t" + model.getValueAt(i, 6).toString());
 			}
-
 		});
 
-		btnRefresh.addActionListener(e -> {
-			refreshTable();
-		});
+		btnRefresh.addActionListener(e -> refreshTable());
 
 		jTable = new JTable();
 		jTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -232,7 +217,7 @@ public class MainWindow {
 	private void initializeButtons() {
 		btnAddMusic = new JButton("Add to Library");
 		btnRemove = new JButton("Remove from Library");
-		btnEdit = new JButton("Modify Data");
+		btnEdit = new JButton("Edit Data");
 		btnLoadData = new JButton("Load Data");
 		btnRefresh = new JButton("Refresh Data");
 		btnSettings = new JButton("Settings");
@@ -306,7 +291,7 @@ public class MainWindow {
 	}
 
 	private void onBtnAddToLibraryClick() {
-		bookForm.setVisible(true);
+		leftBookFormPanel.setVisible(true);
 
 		btnAdd = new JButton("Add"); // make this single instance
 		btnAdd.setEnabled(true);
@@ -319,7 +304,7 @@ public class MainWindow {
 			) {
 				NotificationManager.Message("Alert", "Please fill out all fields.");
 			} else {
-				BookObject bookObject = createMusicObject();
+				BookObject bookObject = createBookObject();
 				boolean success = addTable(bookObject);
 
 				//display success or error message depending on boolean returned by addTable()
@@ -336,13 +321,13 @@ public class MainWindow {
 					bookStatusJTxt.setText("");
 
 				}
-				bookForm.setVisible(false);
+				leftBookFormPanel.setVisible(false);
 			}
 		});
 		btnAdd.setBounds(0, 153, 116, 23);
 
 		try	{
-			bookForm.remove(btnModify);
+			leftBookFormPanel.remove(btnModify);
 		} catch(NullPointerException ex) {
 			System.out.println("btn modify not yet clicked, nothing to worry about doggo"); // will throw exception if btnmodify wasn't clicked
 		}
@@ -357,31 +342,29 @@ public class MainWindow {
 			bookISBMJTxt.setText("");
 			bookStatusJTxt.setText("");
 
-			bookForm.setVisible(false);
+			leftBookFormPanel.setVisible(false);
 		});
 
-		bookForm.add(btnAdd);
-		bookForm.add(btnCancel);
+		leftBookFormPanel.add(btnAdd);
+		leftBookFormPanel.add(btnCancel);
 
-		bookForm.revalidate(); // update changes
-		bookForm.repaint(); // update changes
+		leftBookFormPanel.revalidate(); // update changes
+		leftBookFormPanel.repaint(); // update changes
 	}
 	
 	// edit existing data on the table
 	public boolean modifyTable(BookObject bookObject) {
-
 		boolean success = false;
 
 		conn = DBConnection.getConnection();
 
-		String id= (String)model.getValueAt(jTable.getSelectedRow(), 0);
-		String sql = "UPDATE Music SET Title =\"" + bookObject.getTitle()
-//					+ "\", Artist =\"" + musicObject.getArtist()
-					+ "\", AlbumTitle =\"" + bookObject.getAuthor()
-					+ "\", AlbumArtist =\"" + bookObject.getPubYear()
-					+ "\", Year =\"" + bookObject.getIsbm()
-					+ "\", Genre =\"" + bookObject.getStatus()
-					+ "\" WHERE MusicID = '" + id + "'";
+		String sql = "UPDATE Book SET BookID =\"" + bookObject.getTitle()
+					+ "\", BookTitle =\"" + bookObject.getTitle()
+					+ "\", BookAuthorName =\"" + bookObject.getAuthor()
+					+ "\", BookPublicationYear =\"" + bookObject.getPubYear()
+					+ "\", BookISBN =\"" + bookObject.getIsbm()
+					+ "\", BookStatus =\"" + bookObject.getStatus()
+					+ "\" WHERE BookID = '" + bookObject.getId() + "'";
 
 		System.out.println("modifyTable- SQL : " + sql);
 
@@ -409,8 +392,7 @@ public class MainWindow {
 	}
 
 	// adding data to the table
-	public boolean addTable(BookObject bookObject){
-
+	public boolean addTable(BookObject bookObject) {
 		boolean success= false;
 
 		conn = DBConnection.getConnection();
@@ -444,9 +426,7 @@ public class MainWindow {
 					refreshTable();
 				}
 
-			}
-
-			catch (Exception e) {
+			} catch (Exception e) {
 				NotificationManager.Warning("[addTable] " + e.getMessage());
 			}
 		}
@@ -508,7 +488,7 @@ public class MainWindow {
 
 	}
 
-	private BookObject createMusicObject() {
+	private BookObject createBookObject() {
 		BookObject bookObject = new BookObject();
 
 		String bookID = bookIDJTxt.getText();
