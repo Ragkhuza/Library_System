@@ -36,8 +36,8 @@ public class WindowLogin {
 		JLabel lblUsername = new JLabel("Username");
 		JLabel lblPassword = new JLabel("Password");
 		
-		jtxtUsername = new JTextField("wasd");
-		jtxtPassword = new JPasswordField("wasd123");
+		jtxtUsername = new JTextField("user2");
+		jtxtPassword = new JPasswordField("user123");
 		
 		JButton btnLogin = new JButton("Login");
 		JButton btnRegister = new JButton("Register");
@@ -76,7 +76,7 @@ public class WindowLogin {
 				Validator.displayError();
 				return;
 			}
-		
+			// Populate CredentialData.java
 			if(!AdminData.authenticate(username, password)) return;
 
 			NotificationManager.Success(CredentialData.getUserType() + " Login Successful.");

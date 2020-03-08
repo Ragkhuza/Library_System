@@ -1,9 +1,9 @@
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+import oracle.jdbc.OracleTypes;
+import oracle.jdbc.OracleCallableStatement;
 
 public class WindowPatron {
     JFrame mainWindowJFrame;
@@ -11,7 +11,7 @@ public class WindowPatron {
     JLabel bookTitleJLbl, authorNameJLbl, pubYearJLbl, bookISBNJLbl, bookStatusJLbl;
     static private JTable jTable;
     JPanel leftBookFormPanel;
-    JButton btnSearchBookMain, btnRemove, btnLoadData, btnRefresh, btnSettings, btnCancel;
+    JButton btnBorrowBook, btnSearchBookMain, btnMyBooks, btnLoadData, btnRefresh, btnSettings, btnCancel;
 
     final static int J_TABLE_WIDTH = 900;
 
@@ -65,9 +65,41 @@ public class WindowPatron {
 
         btnSearchBookMain.addActionListener(e -> onBtnSearchLibraryClick());
 
-        btnRemove.addActionListener(e -> {
-            NotificationManager.Message("Message", "[COMING SOON]Select a book to borrow.");
+        btnMyBooks.addActionListener(e -> {
+            conn = DBConnection.getConnection();
+
+            if(conn != null) {
+
+                /** @DOGGO */
+                // Call procedure in Oracle
+                int uID = CredentialData.getUserLoginID();
+                // Declare var 1 with colon
+                String sql = "BEGIN :1 := GetBorrowedBooks(uID); END;";
+
+                try {
+                    OracleCallableStatement st = (OracleCallableStatement) conn.prepareCall(sql); // Initialize Statement
+                    st.registerOutParameter(1, OracleTypes.CURSOR); // Configure our var 1
+                    System.out.println("EXECUTING Function: " + sql + " " + st.execute()); // execute and print to console
+                    ResultSet rs = st.getCursor(1); // get result set
+                    Object [] columnData = new Object[7];
+                    model.setRowCount(0);
+
+                    // get data
+                    while (rs.next()) {
+                        columnData[0] = rs.getString("BookTitle");
+                        columnData[1] = rs.getString("BookAuthorName");
+                        columnData[2] = rs.getString("BookPublicationYear");
+                        columnData[3] = rs.getString("BookISBN");
+                        columnData[4] = rs.getString("BookStatus");
+                        model.addRow(columnData);
+                    }
+                } catch (Exception e1) {
+                    NotificationManager.Warning("[refreshTable] " + e1.getMessage());
+                }
+            }
         });
+
+        btnBorrowBook.addActionListener(e -> onBtnBorrowBookClick());
 
         btnSettings.addActionListener(e -> {
             mainWindowJFrame.dispose();
@@ -120,7 +152,8 @@ public class WindowPatron {
 
     private void addButtonsToBookFrame() {
         mainWindowJFrame.add(btnSearchBookMain);
-        mainWindowJFrame.add(btnRemove);
+        mainWindowJFrame.add(btnMyBooks);
+        mainWindowJFrame.add(btnBorrowBook);
         mainWindowJFrame.add(btnLoadData);
         mainWindowJFrame.add(btnRefresh);
         mainWindowJFrame.add(btnSettings);
@@ -128,13 +161,15 @@ public class WindowPatron {
 
     private void initializeButtons() {
         btnSearchBookMain = new JButton("Search Library");
-        btnRemove = new JButton("Borrow Book");
+        btnMyBooks = new JButton("My Books");
+        btnBorrowBook = new JButton("Borrow Book");
         btnLoadData = new JButton("Load Data");
         btnRefresh = new JButton("Refresh Data");
         btnSettings = new JButton("Settings");
 
         btnSearchBookMain.setBounds(10, 11, 244, 23);
-        btnRemove.setBounds(10, 36, 244, 23);
+        btnMyBooks.setBounds(10, 36, 244, 23);
+        btnBorrowBook.setBounds(10, 61, 244, 23);
         btnLoadData.setBounds(10, 86, 244, 23);
         btnRefresh.setBounds(10, 111, 244, 23);
         btnSettings.setBounds(10, 136, 244, 23);
@@ -287,6 +322,10 @@ public class WindowPatron {
 
         leftBookFormPanel.revalidate(); // update changes
         leftBookFormPanel.repaint(); // update changes
+    }
+
+    private void onBtnBorrowBookClick() {
+        System.out.println("Borrowing Book");
     }
 
     private BookObject createBookObject() {

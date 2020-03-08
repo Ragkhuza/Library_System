@@ -16,7 +16,6 @@ public class AdminData {
 		boolean result = false;
 		conn = DBConnection.getConnection(); // establishing of connection to the database
 
-
 		if(conn != null) {
 			String sql = "SELECT * FROM LIBRARYUSERS WHERE USERNAME = '"  + userN + "' AND USERPASSWORD = '" + pass + "'";
 			System.out.println("refreshTable- SQL : " + sql);
@@ -30,6 +29,7 @@ public class AdminData {
 					if(userN.equals(rs.getString("USERNAME")) && pass.equals(rs.getString("USERPASSWORD"))) {
 						result = true;
 						// this will fetch user input data
+						CredentialData.setUserLoginID(rs.getInt("USERLOGINID"));
 						CredentialData.setUsername(rs.getString("USERNAME"));
 						CredentialData.setEmail(rs.getString("EMAIL"));
 						CredentialData.setPassword(rs.getString("USERPASSWORD"));
@@ -47,6 +47,9 @@ public class AdminData {
 					} else
 						System.out.println("Something wrong with the AdminData variables");
 				} else {
+					System.out.println(rs.getRow());
+					System.out.println(rs.next());
+					System.out.println(rs.getRow());
 					NotificationManager.Error("Invalid Username or Password!");
 				}
 			} catch (Exception e) {

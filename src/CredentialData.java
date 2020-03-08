@@ -1,4 +1,5 @@
 public final class CredentialData {
+	private static int userLoginID;
 	private static String username;
 	private static String email;
 	private static String password;
@@ -40,6 +41,14 @@ public final class CredentialData {
 			return getPostalCode();
 		 else
 			return "[CREDENTIALDATA.JAVA] ERROR";
+	}
+
+	public static int getUserLoginID() {
+		return userLoginID;
+	}
+
+	public static void setUserLoginID(int userLoginID) {
+		CredentialData.userLoginID = userLoginID;
 	}
 
 	public static String getUserType() {
