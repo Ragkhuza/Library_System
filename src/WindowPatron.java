@@ -1,4 +1,6 @@
 import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -11,7 +13,7 @@ public class WindowPatron {
     JLabel bookTitleJLbl, authorNameJLbl, pubYearJLbl, bookISBNJLbl, bookStatusJLbl;
     static private JTable jTable;
     JPanel leftBookFormPanel;
-    JButton btnBorrowBook, btnSearchBookMain, btnMyBooks, btnLoadData, btnRefresh, btnSettings, btnCancel;
+    JButton btnBorrowBook, btnSearchBookMain, btnMyBooks, btnReturnBook, btnRefresh, btnSettings, btnCancel;
 
     final static int J_TABLE_WIDTH = 900;
 
@@ -21,7 +23,7 @@ public class WindowPatron {
     ResultSet rs = null;
     static DefaultTableModel model = new DefaultTableModel();
     private final static String[] TABLE_COLUMNS = {
-            "BookTitle", "BookAuthorName", "BookPublicationYear", "BookISBN", "BookStatus"
+            "BookTitle", "BookAuthorName", "BookPublicationYear", "BookISBN", "BookStatus", "BookID"
     };
 
     public WindowPatron() {
@@ -46,18 +48,18 @@ public class WindowPatron {
         mainWindowJFrame = createMainJFrame("Library Management System");
 
         leftBookFormPanel = buildBookFormJPanel();
-        JPanel rightBookTablePanel = new JPanel();
+//        JPanel rightBookTablePanel = new JPanel();
         JTextArea infoTxt = new JTextArea();
 
-        rightBookTablePanel.setBounds(10, 170, 244, 143);
+        /*rightBookTablePanel.setBounds(10, 170, 244, 143);
         rightBookTablePanel.setLayout(null);
-        rightBookTablePanel.add(infoTxt);
+        rightBookTablePanel.add(infoTxt);*/
 
         infoTxt.setEditable(false);
         infoTxt.setBounds(0, 0, 244, 143);
 
         mainWindowJFrame.add(leftBookFormPanel);
-        mainWindowJFrame.add(rightBookTablePanel);
+//        mainWindowJFrame.add(rightBookTablePanel);
 
         initializeButtons();
 
@@ -74,25 +76,32 @@ public class WindowPatron {
                 // Call procedure in Oracle
                 int uID = CredentialData.getUserLoginID();
                 // Declare var 1 with colon
-                String sql = "BEGIN :1 := GetBorrowedBooks(uID); END;";
+                String sql = "BEGIN :1 := GetBorrowedBooks(" + uID + "); END;";
 
                 try {
                     OracleCallableStatement st = (OracleCallableStatement) conn.prepareCall(sql); // Initialize Statement
                     st.registerOutParameter(1, OracleTypes.CURSOR); // Configure our var 1
                     System.out.println("EXECUTING Function: " + sql + " " + st.execute()); // execute and print to console
                     ResultSet rs = st.getCursor(1); // get result set
-                    Object [] columnData = new Object[7];
+                    Object[] columnData = new Object[7];
                     model.setRowCount(0);
 
+                    System.out.println("ROWWWWWWWWWWWWWWWWWWWW" + rs.getRow());
+
                     // get data
-                    while (rs.next()) {
-                        columnData[0] = rs.getString("BookTitle");
-                        columnData[1] = rs.getString("BookAuthorName");
-                        columnData[2] = rs.getString("BookPublicationYear");
-                        columnData[3] = rs.getString("BookISBN");
-                        columnData[4] = rs.getString("BookStatus");
-                        model.addRow(columnData);
-                    }
+
+                    if (rs.next())
+                        do {
+                            columnData[0] = rs.getString("BookTitle");
+                            columnData[1] = rs.getString("BookAuthorName");
+                            columnData[2] = rs.getString("BookPublicationYear");
+                            columnData[3] = rs.getString("BookISBN");
+                            columnData[4] = rs.getString("BookStatus");
+                            model.addRow(columnData);
+                        } while(rs.next());
+                    else
+                        NotificationManager.Message("Message", "You do not have any borrowed books.");
+
                 } catch (Exception e1) {
                     NotificationManager.Warning("[refreshTable] " + e1.getMessage());
                 }
@@ -106,23 +115,7 @@ public class WindowPatron {
             new WindowSettings();
         });
 
-        btnLoadData.addActionListener(e -> {
-            DefaultTableModel model = (DefaultTableModel) jTable.getModel();
-
-            if (jTable.getSelectedRow() < 0) {
-                NotificationManager.Error("Select a row to display");
-            } else {
-                conn = DBConnection.getConnection();
-                int i = jTable.getSelectedRow();
-                infoTxt.setText("");
-                infoTxt.append("Book Information: \n"
-                        + "\nTitle:\t" + model.getValueAt(i, 2).toString()
-                        + "\nAuthor Name:\t" + model.getValueAt(i, 3).toString()
-                        + "\nPublication Year:\t" + model.getValueAt(i, 4).toString()
-                        + "\nISBN:\t" + model.getValueAt(i, 5).toString()
-                        + "\nStatus:\t" + model.getValueAt(i, 6).toString());
-            }
-        });
+        btnReturnBook.addActionListener(e -> onBtnReturnBookClick());
 
         btnRefresh.addActionListener(e -> refreshTable());
 
@@ -154,7 +147,7 @@ public class WindowPatron {
         mainWindowJFrame.add(btnSearchBookMain);
         mainWindowJFrame.add(btnMyBooks);
         mainWindowJFrame.add(btnBorrowBook);
-        mainWindowJFrame.add(btnLoadData);
+        mainWindowJFrame.add(btnReturnBook);
         mainWindowJFrame.add(btnRefresh);
         mainWindowJFrame.add(btnSettings);
     }
@@ -163,14 +156,14 @@ public class WindowPatron {
         btnSearchBookMain = new JButton("Search Library");
         btnMyBooks = new JButton("My Books");
         btnBorrowBook = new JButton("Borrow Book");
-        btnLoadData = new JButton("Load Data");
+        btnReturnBook = new JButton("Return Book");
         btnRefresh = new JButton("Refresh Data");
         btnSettings = new JButton("Settings");
 
         btnSearchBookMain.setBounds(10, 11, 244, 23);
         btnMyBooks.setBounds(10, 36, 244, 23);
         btnBorrowBook.setBounds(10, 61, 244, 23);
-        btnLoadData.setBounds(10, 86, 244, 23);
+        btnReturnBook.setBounds(10, 86, 244, 23);
         btnRefresh.setBounds(10, 111, 244, 23);
         btnSettings.setBounds(10, 136, 244, 23);
     }
@@ -250,6 +243,7 @@ public class WindowPatron {
                     columnData[2] = rs.getString("BookPublicationYear");
                     columnData[3] = rs.getString("BookISBN");
                     columnData[4] = rs.getString("BookStatus");
+                    columnData[5] = rs.getString("BookID");
                     model.addRow(columnData);
                 }
             } catch (Exception e) {
@@ -325,7 +319,53 @@ public class WindowPatron {
     }
 
     private void onBtnBorrowBookClick() {
-        System.out.println("Borrowing Book");
+        DefaultTableModel model = (DefaultTableModel) jTable.getModel();
+
+        if (jTable.getSelectedRow() < 0) {
+            NotificationManager.Error("Select a book first");
+        } else {
+            System.out.println("Borrow Book Button Pressed");
+            int i = jTable.getSelectedRow();
+            /*System.out.println("Book Information: \n"
+                    + "\nTitle:\t" + model.getValueAt(i, 0).toString()
+                    + "\nAuthor Name:\t" + model.getValueAt(i, 1).toString()
+                    + "\nPublication Year:\t" + model.getValueAt(i, 2).toString()
+                    + "\nISBN:\t" + model.getValueAt(i, 3).toString()
+                    + "\nStatus:\t" + model.getValueAt(i, 4).toString());*/
+
+                try {
+                    String dateToday = new SimpleDateFormat("MM/dd/YYYY").format(new Date());
+
+                    System.out.println("Date generated: " + dateToday);
+
+
+                    if (DBProcedureHelper.borrowBook(
+                            CredentialData.getUserLoginID(),
+                            Integer.parseInt(model.getValueAt(i,5).toString()),
+                            dateToday
+                    ) > 0) {
+                        NotificationManager.Success("Book Successfully Borrowed.");
+                    } else
+                        NotificationManager.Error("Book was already Borrowed.");
+
+                } catch (Exception e1) {
+                    NotificationManager.Warning("[Borrow Book] " + e1.getMessage());
+                }
+
+        }
+    }
+
+    private void onBtnReturnBookClick() {
+        DefaultTableModel model = (DefaultTableModel) jTable.getModel();
+
+        if (jTable.getSelectedRow() < 0) {
+            NotificationManager.Error("Select a row to display");
+        } else {
+            conn = DBConnection.getConnection();
+            int i = jTable.getSelectedRow();
+        }
+
+
     }
 
     private BookObject createBookObject() {

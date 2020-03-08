@@ -2,7 +2,7 @@ import java.sql.*;
 
 public class DBConnection {
 	
-	private static Connection conn = null;// unify all connection
+	public static Connection conn = null;// unify all connection
 
 	public static Connection getConnection() {
 		try{
